@@ -36,8 +36,11 @@ public class Main {
 			e1.get(i).displayedge(); 
 		}
 		System.out.println();
+		g.displayeadgs();
+		System.out.println();
 		Graph res=maximumFlow.updategraph(e1,e, g);
-		res.displayeadgs();*/
+		res.displayeadgs();
+		*/
 		Algorithms algo=new MaximumFlow();
 		Graph res=algo.run(g, "s", "t");
 		res.displayeadgs();
