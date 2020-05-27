@@ -1,8 +1,8 @@
 package Graph;
 
 public class Vertex {
-	int id;
-	String name;
+	public int id;
+	public String name;
 	public Vertex(int id,String name) {
 		this.id=id;
 		this.name=name;
