@@ -11,10 +11,7 @@ import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.SparseMultigraph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.picking.PickedState;
-/**
- *
- * @author Nagla Essam
- */
+
 public class GraphPanel extends Container
 {
     static final long serialVersionUID = 420001L;
