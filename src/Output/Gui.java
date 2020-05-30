@@ -101,7 +101,11 @@ public class GUI extends JFrame {
         // The BasicVisualizationServer<V,E> is parameterized by the edge types
         BasicVisualizationServer<Integer, String> vv
                 = new BasicVisualizationServer<Integer, String>(layout);
-        vv.setPreferredSize(new Dimension(640, 480)); //Sets the viewing area size
+        if (name.equals("Input")) {
+        	vv.setPreferredSize(new Dimension(800, 700)); //Sets the viewing area size
+        }else {
+        	vv.setPreferredSize(new Dimension(640, 480)); //Sets the viewing area size
+        }
         vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
         vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
 
@@ -238,6 +242,7 @@ public class GUI extends JFrame {
 					split = getEdges.get(i).split(" ");
 					input.addEdge(split[0], split[1], Integer.parseInt(split[2]));	
 				}
+				drawRepresentation(input.representation, input.representationcost, "Input");
 				Graph output = algorithm.run(input, startPoint, endPoint);
 				drawRepresentation(output.representation, output.representationcost, "Output");
 				
