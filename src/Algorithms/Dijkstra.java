@@ -4,13 +4,18 @@ import Graph.Graph;
 import Graph.Vertex;
 import Graph.Edge;
 
+import javax.print.attribute.standard.ReferenceUriSchemesSupported;
 import javax.swing.*;
 import java.beans.IntrospectionException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Vector;
 
 public class Dijkstra implements Algorithms {
+
+    String ResultSteps="";
+
 
     //Return min Vertex ID.
     int minDistance(Graph input, int Distances[], boolean Not_In_MST[], int des) {
@@ -87,24 +92,27 @@ public class Dijkstra implements Algorithms {
         return result;
     }
 
+
     Vector<Integer> GetPath(Graph input, int dist[], int par[], String v2) {
-        Vector<Integer> vec = new Vector<>();
+        Vector<Integer> vec = new Vector<>();String ResultSteps2="";
         int destination = input.getVertexId(v2);
         for (int i = 0; i < input.numOfVertices; i++) {
             int temp = par[i];
             //System.out.print(i + " <- ");
             if (i == destination) {
+                ResultSteps2+=Integer.toString(i) ;
                 vec.add(destination);
                 while (temp != -1) {
+                    ResultSteps2+=" >- "+temp  ;
                     // System.out.print(temp + " <- ");
                     vec.add(temp);
                     temp = par[temp];
-
                 }
-                //  System.out.println("   " + dist[i]);
+                for (int d = ResultSteps2.length()-1; d >=0; d--) {
+                    ResultSteps+=ResultSteps2.charAt(d);
+                }
+                ResultSteps+="\t Distance : "+dist[i];
             }
-
-
         }
         return vec;
 
