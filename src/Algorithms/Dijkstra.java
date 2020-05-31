@@ -14,7 +14,7 @@ import java.util.Vector;
 
 public class Dijkstra implements Algorithms {
 
-    String ResultSteps="";
+    String ResultSteps = "";
 
 
     //Return min Vertex ID.
@@ -77,45 +77,59 @@ public class Dijkstra implements Algorithms {
 
         Graph result = new Graph(v.size(), true, Vertices);
 
-        Vector<Integer>vec = new Vector<>();
+        Vector<Integer> vec = new Vector<>();
 
-        for (int i = 1; i < v.size(); i++)
-        {
-            int x =  v.get(i-1), y =  v.get(i);
-            int cost = input.getEdgeCost(y,x);
+        for (int i = 1; i < v.size(); i++) {
+            int x = v.get(i - 1), y = v.get(i);
+            int cost = input.getEdgeCost(y, x);
             vec.add(cost);
         }
         for (int i = 1; i < result.vertices.size(); i++) {
-            int x = result.vertices.get(i - 1).id, y = result.vertices.get(i ).id;
-            result.addEdge(y,x, vec.get(vec.size()-i));
+            int x = result.vertices.get(i - 1).id, y = result.vertices.get(i).id;
+            result.addEdge(y, x, vec.get(vec.size() - i));
         }
         return result;
     }
 
 
     Vector<Integer> GetPath(Graph input, int dist[], int par[], String v2) {
-        Vector<Integer> vec = new Vector<>();String ResultSteps2="";
+        Vector<Integer> vec = new Vector<>();
+        String ResultSteps2 = "";
+        Vector<Integer> vertices = new Vector<>();
         int destination = input.getVertexId(v2);
+
         for (int i = 0; i < input.numOfVertices; i++) {
             int temp = par[i];
-            //System.out.print(i + " <- ");
             if (i == destination) {
-                ResultSteps2+=Integer.toString(i) ;
+
+                ResultSteps2 += input.getVertexById(i);
                 vec.add(destination);
+
                 while (temp != -1) {
-                    ResultSteps2+=" >- "+temp  ;
-                    // System.out.print(temp + " <- ");
+
+                    ResultSteps2 += input.getVertexById(temp);
                     vec.add(temp);
                     temp = par[temp];
                 }
-                for (int d = ResultSteps2.length()-1; d >=0; d--) {
-                    ResultSteps+=ResultSteps2.charAt(d);
+
+                String src = String.valueOf(ResultSteps2.charAt(ResultSteps2.length() - 1));
+                String des = String.valueOf(ResultSteps2.charAt(0));
+
+                Vector<Integer> vec2 = new Vector<>();
+                vec2 = vec;
+
+                for (int d = ResultSteps2.length() - 1; d >= 0; d--) {
+                    if (d == ResultSteps2.length() - 1)
+                        ResultSteps += "We Start with the source node : " + ResultSteps2.charAt(d) + " , with distance  = 0 " + "\n";
+                    else
+                        ResultSteps += "We Choose the vertex with the minimum distance : " + ResultSteps2.charAt(d) + " , with distance = " + input.getEdgeCost(vec2.get(d + 1), vec2.get(d)) + "\n";
+
                 }
-                ResultSteps+="\t Distance : "+dist[i];
+
+                ResultSteps += "\nTotal Distance from vertex( " + src + " ) to vertex ( " + des + " ) is : " + dist[i];
             }
         }
-        return vec;
-
-
+            System.out.println(ResultSteps);
+            return vec;
+        }
     }
-}
