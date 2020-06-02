@@ -3,6 +3,9 @@ package Algorithms;
 import Graph.Graph;
 import Graph.Vertex;
 import Graph.Edge;
+import Output.GUI;
+import Output.GUISteps;
+import Output.GraphPanel;
 
 import javax.print.attribute.standard.ReferenceUriSchemesSupported;
 import javax.swing.*;
@@ -16,13 +19,13 @@ public class Dijkstra implements Algorithms {
 
     String ResultSteps = "";
 
+    static int x2 = 10, y2 = 0;
 
     //Return min Vertex ID.
     int minDistance(Graph input, int Distances[], boolean Not_In_MST[], int des) {
         int mini = Integer.MAX_VALUE, min_index = -1;
 
         for (int v = 0; v < input.numOfVertices; v++) {
-            //	System.out.println("Distances : " +Distances[v]);
             if (!Not_In_MST[v] && (Distances[v] < mini)) {
                 mini = Distances[v];
                 min_index = v;
@@ -84,10 +87,15 @@ public class Dijkstra implements Algorithms {
             int cost = input.getEdgeCost(y, x);
             vec.add(cost);
         }
+        String name = "Step ";
         for (int i = 1; i < result.vertices.size(); i++) {
             int x = result.vertices.get(i - 1).id, y = result.vertices.get(i).id;
             result.addEdge(y, x, vec.get(vec.size() - i));
+
+            GraphPanel ob = new GraphPanel(result, name + i, x2, y2);
+            x2 += 20;y2+=5;
         }
+        GUISteps.steps += ResultSteps;
         return result;
     }
 
@@ -129,7 +137,7 @@ public class Dijkstra implements Algorithms {
                 ResultSteps += "\nTotal Distance from vertex( " + src + " ) to vertex ( " + des + " ) is : " + dist[i];
             }
         }
-            System.out.println(ResultSteps);
-            return vec;
-        }
+        //System.out.println(ResultSteps);
+        return vec;
     }
+}

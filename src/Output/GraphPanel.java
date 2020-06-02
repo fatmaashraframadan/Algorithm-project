@@ -1,61 +1,80 @@
 package Output;
 
-import java.awt.Container;
-import java.awt.Dimension;
+import java.awt.*;
 import javax.swing.JFrame;
 
 import Graph.Graph;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
+import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.SparseMultigraph;
+import edu.uci.ics.jung.graph.util.EdgeType;
+import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.picking.PickedState;
 
-public class GraphPanel extends Container
-{
+public class GraphPanel extends Container {
     static final long serialVersionUID = 420001L;
+    //  static int x = 100;
+//    static int y= 100;
     DirectedSparseGraph<Integer, Integer> graph = null;
     VisualizationViewer<Integer, Integer> vv = null;
     PickedState<Number> pickedState = null;
-    SparseMultigraph<Integer,String> euler = new SparseMultigraph();
+    SparseMultigraph<Integer, String> euler = new SparseMultigraph();
 
-    public GraphPanel(Graph graph1)
-    {
-        try
-        {
-            graph = new DirectedSparseGraph<Integer, Integer>();
-            construct_graph(graph1);
+    public GraphPanel(Graph graph1, String name, int x, int y) {
 
-            vv = new VisualizationViewer<Integer, Integer>
-                    (new CircleLayout<Integer, Integer>(graph), new Dimension(400, 400));
-
-
-            // The following code adds capability for mouse picking of
-            // vertices/edges. Vertices can even be moved!
-        }
-        catch (Exception e)
-        {
-            System.err.println("Failed to construct graph!\n");
-            System.err.println("Caught Exception: " + e.getMessage());
-        }
+        construct_graph(graph1, graph1.representation, graph1.representationcost, name, x, y);
     }
-    public void attach_to_frame(JFrame frame)
-    {
+
+    public void attach_to_frame(JFrame frame) {
         frame.setContentPane(vv);
     }
 
+    public void construct_graph(Graph input, Integer[][] nodes_list, Integer[][] costReprestentation, String name, int x2, int y) {
 
-    private void construct_graph(Graph graph1)
-    {
-        int x=0;
-        for (int i = 0; i < graph1.vertices.size(); i++) {
-            euler.addVertex(i);
-            for (int j = 0; j < graph1.vertices.size(); j++) {
-                if(graph1.representation[i][j]==1) {
-                    graph.addEdge(x,i, j);
+        int x = 1;
+
+        SparseMultigraph<String, String> graph = new SparseMultigraph<String, String>();
+        for (int i = 0; i < nodes_list.length; i++) {
+            graph.addVertex(input.getVertexById(i));
+            for (int j = 0; j < nodes_list.length; j++) {
+                if (nodes_list[i][j] == 1) {
+                    String s = "COST " + x + ":" + "(" + costReprestentation[i][j] + ")";
+                    graph.addEdge(s, input.getVertexById(i), input.getVertexById(j), EdgeType.DIRECTED);
                     x++;
                 }
             }
         }
+
+        Layout<Integer, String> layout = new CircleLayout(graph);
+        layout.setSize(new Dimension(400, 400)); // sets the initial size of the space
+        // The BasicVisualizationServer<V,E> is parameterized by the edge types
+        BasicVisualizationServer<Integer, String> vv = new BasicVisualizationServer<Integer, String>(layout);
+//        if (name.equals("Input")) {
+//            x+=10;
+//            vv.setPreferredSize(new Dimension(x, 700)); //Sets the viewing area size
+//        } else {
+//x+=10;
+//            vv.setPreferredSize(new Dimension(x, 480)); //Sets the viewing area size
+//            System.out.println("This : " +(x));
+//        }
+        vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
+        vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
+
+        JFrame frame = new JFrame(name);
+        if (name.equals("input")) {
+
+            frame.setLocation(750, 30);
+        } else
+            frame.setLocation(x2, y);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(vv);
+        frame.pack();
+
+        frame.setVisible(true);
+
     }
+
 }

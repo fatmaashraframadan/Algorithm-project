@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Graph.*;
+import Output.GraphPanel;
 
 public class MaximumFlow implements Algorithms{
 	List<Edge>closededge=new ArrayList<Edge>();
@@ -120,6 +121,7 @@ public class MaximumFlow implements Algorithms{
 		}
 		for (int i = 0; i < closededge.size(); i++) {
 			copyGraph.addEdge(closededge.get(i).second, closededge.get(i).first, closededge.get(i).cost);
+		//	GraphPanel ob=new GraphPanel(copyGraph,"Step"+(i+1));
 		}		
 		
 		return copyGraph;
