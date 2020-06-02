@@ -7,6 +7,8 @@ import Graph.*;
 import Output.GraphPanel;
 
 public class MaximumFlow implements Algorithms{
+
+	static int x2 = 10, y2 = 0;
 	List<Edge>closededge=new ArrayList<Edge>();
 	public List<Edge> getPath(Graph graph, int startNode,int endnode) {
 		
@@ -121,8 +123,9 @@ public class MaximumFlow implements Algorithms{
 		}
 		for (int i = 0; i < closededge.size(); i++) {
 			copyGraph.addEdge(closededge.get(i).second, closededge.get(i).first, closededge.get(i).cost);
-		//	GraphPanel ob=new GraphPanel(copyGraph,"Step"+(i+1));
-		}		
+			GraphPanel ob = new GraphPanel(copyGraph, "Step "+(i+1), x2, y2);
+			x2 += 20;y2+=5;
+		}
 		
 		return copyGraph;
 	}
