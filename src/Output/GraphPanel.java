@@ -67,6 +67,9 @@ public class GraphPanel extends Container {
         if (name.equals("input")) {
 
             frame.setLocation(750, 30);
+       //     frame.setSize(900, 900);
+
+
         } else
             frame.setLocation(x2, y);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

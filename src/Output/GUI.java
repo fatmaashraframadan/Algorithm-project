@@ -118,11 +118,12 @@ public class GUI extends JFrame {
 
     public void initialize() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(400, 200, 400, 450);
+        setBounds(400, 20, 400, 650);
+
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
-        setTitle("");
+        setTitle("Team Number: 33");
         setResizable(false);
         setVisible(true);
         contentPane.setLayout(null);
@@ -130,6 +131,8 @@ public class GUI extends JFrame {
         JTextArea textArea_1 = new JTextArea();
         textArea_1.setBounds(25, 90, 133, 22);
         contentPane.add(textArea_1);
+
+
 
         JLabel lblNewLabel_1 = new JLabel("Insert a Vertex");
         lblNewLabel_1.setBounds(25, 75, 125, 13);
@@ -151,9 +154,9 @@ public class GUI extends JFrame {
         dijkestraBox.setBounds(175, 30, 105, 21);
         contentPane.add(dijkestraBox);
 
-        JLabel lblNewLabel_3 = new JLabel("Insert The start Point");
-        lblNewLabel_3.setBounds(200, 75, 125, 13);
-        contentPane.add(lblNewLabel_3);
+        JLabel lblNewLabel_32 = new JLabel("Insert The start Point");
+        lblNewLabel_32.setBounds(200, 75, 125, 13);
+        contentPane.add(lblNewLabel_32);
 
         JTextArea textArea_3 = new JTextArea();
         textArea_3.setBounds(200, 90, 133, 22);
@@ -172,11 +175,11 @@ public class GUI extends JFrame {
         contentPane.add(lblNewLabel_5);
 
         JTextArea textArea_5 = new JTextArea();
-        textArea_5.setBounds(25, 250, 315, 100);
+        textArea_5.setBounds(25, 250, 350, 200);
         contentPane.add(textArea_5);
 
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(25, 250, 315, 100);
+        scrollPane.setBounds(25, 250, 350, 200);
         contentPane.add(scrollPane);
 
         scrollPane.setViewportView(textArea_5);
@@ -192,6 +195,7 @@ public class GUI extends JFrame {
         contentPane.add(btnAddEdges);
 
 
+
         JButton btnAddAnotherVertex = new JButton("Add Vertex");
         btnAddAnotherVertex.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -202,8 +206,25 @@ public class GUI extends JFrame {
         btnAddAnotherVertex.setBounds(25, 115, 133, 21);
         contentPane.add(btnAddAnotherVertex);
 
+
+        JLabel lblNewLabel_3 = new JLabel("Team Members : ");
+        lblNewLabel_3.setBounds(20, 440, 460, 60);
+        contentPane.add(lblNewLabel_3);
+
+        JLabel lblNewLabel_33 = new JLabel("1-Peter Malak 20170079        2-Fatma Ashraf 20170192");
+        lblNewLabel_33.setBounds(20, 470, 460, 60);
+        contentPane.add(lblNewLabel_33);
+
+        JLabel lblNewLabel_34 = new JLabel("3-Mostafa Badr 20170286     4-Mina Farid 20170310");
+        lblNewLabel_34.setBounds(20, 500, 460, 60);
+        contentPane.add(lblNewLabel_34);
+
+        JLabel lblNewLabel_35 = new JLabel("5-Nourhan Atef 20170325");
+        lblNewLabel_35.setBounds(20, 530, 460, 60);
+        contentPane.add(lblNewLabel_35);
+
         JButton btnNewButton = new JButton("Run");
-        btnNewButton.setBounds(150, 370, 60, 30);
+        btnNewButton.setBounds(250, 560, 60, 30);
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
