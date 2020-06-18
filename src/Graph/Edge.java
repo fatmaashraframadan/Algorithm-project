@@ -9,7 +9,7 @@ public class Edge {
 	}
 	public void displayedge(){
 
-		System.out.println("\tfirst :"+second+" \tsecond :"+first+"\t cost :"+cost );
+		System.out.println("\tfirst :"+first+" \tsecond :"+second+"\t cost :"+cost );
 	}
 	
 }

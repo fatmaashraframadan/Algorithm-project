@@ -3,12 +3,8 @@ package Algorithms;
 import Graph.Graph;
 import Output.GUISteps;
 import Output.GraphPanel;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
-import javax.jnlp.IntegrationService;
 import java.io.*;
 import java.util.*;
-import java.util.LinkedList;
 import java.util.*;
 
 public class Dijkstra implements Algorithms {
@@ -64,7 +60,7 @@ public class Dijkstra implements Algorithms {
         List<Graph> Listofgraphs = new ArrayList<Graph>();
         if (!IsReachable(input, v1, v2)) {
             ResultSteps += "Destination can not be reached.\n" + "There is not path between vertex : " + v1 + " and vertex : " + v2;
-            System.out.println(ResultSteps);
+            //System.out.println(ResultSteps);
             return Listofgraphs;
         }
         ArrayList<String> Path = new ArrayList<String>();//Vertices Names.
@@ -116,11 +112,17 @@ public class Dijkstra implements Algorithms {
         }
 
 
+		List<String> copyvertices = new ArrayList<String>();
+		for (int i = 0; i < input.vertices.size(); i++) {
+			copyvertices.add(input.vertices.get(i).name);
+		}
         String name = "Step ";
         for (int i = 1; i < result.vertices.size(); i++) {
             int x = result.vertices.get(i - 1).id, y = result.vertices.get(i).id;
             result.addEdge(y, x, vec.get(vec.size() - i));
-            Listofgraphs.add(result);
+            Graph g = new Graph(input.numOfVertices, true, copyvertices);
+			g.copyGraph(result);
+			Listofgraphs.add(g);
         }
         GUISteps.steps += ResultSteps;
         return Listofgraphs;
@@ -161,7 +163,7 @@ public class Dijkstra implements Algorithms {
                 ResultSteps += "\nTotal Distance from vertex( " + src + " ) to vertex ( " + des + " ) is : " + dist[i];
             }
         }
-        System.out.println(ResultSteps);
+        //System.out.println(ResultSteps);
         return vec;
     }
 }

@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Graph {
-    private boolean isDirectGraph;
+    public boolean isDirectGraph;
     public int numOfVertices;
     public Integer[][] representation;
     public Integer[][] representationcost;
@@ -65,13 +65,14 @@ public class Graph {
 
         int x = this.getVertexId(vId1);
         int y = this.getVertexId(vId2);
+        //System.out.println("x:"+x+"  y:"+y+"\n");
         representation[x][y]++;
         representationcost[x][y] += cost;
         edges.add(new Edge(x, y, cost));
         if (!isDirectGraph) {
             adj[this.getVertexId(vId2)].add(this.getVertexId(vId1));
             representation[y][x]++;
-            representationcost[x][y] += cost;
+            representationcost[y][x] += cost;
             edges.add(new Edge(y, x, cost));
         }
     }

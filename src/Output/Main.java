@@ -10,10 +10,10 @@ public class Main {
 
     public static void main(String[] args) {
         List<String> v = new ArrayList<String>();
+        v.add("s");
         v.add("a");
         v.add("b");
-        v.add("c");
-        //v.add("a");
+        v.add("t");
 
 //        v.add("s");
 //        v.add("a");
@@ -24,10 +24,11 @@ public class Main {
 //        v.add("f");
 //        v.add("g");
 //        v.add("t");
-        Graph g = new Graph(3, true, v);
-        g.addEdge("a", "b", 2);
-        g.addEdge("b", "c", 2);
-        g.addEdge("c", "a", 2);
+        Graph g = new Graph(4, true, v);
+        g.addEdge("s", "a", 6);
+        g.addEdge("s", "b", 4);
+        g.addEdge("a", "t", 5);
+        g.addEdge("b", "t", 7);
 //        g.addEdge("s", "a", 4);
 //        g.addEdge("s", "g", 8);
 //
@@ -67,8 +68,17 @@ public class Main {
 //		Algorithms algo=new MaximumFlow();
 //		Graph res=algo.run(g, "s", "t");
 //		res.displayeadgs();
-        Algorithms algo = new Dijkstra();
-        List<Graph> listofg = algo.run(g, "a", "c");
+//        for (int i = 0; i < g.vertices.size(); i++) {
+//			g.vertices.get(i).display();
+//			System.out.println();
+//		}
+        Algorithms algo = new MaximumFlow();
+        List<Graph> listofg = algo.run(g, "s", "t");
+        System.out.println(GUISteps.steps);
+        for (int i = 0; i < listofg.size(); i++) {
+			listofg.get(i).displayeadgs();
+			System.out.println();
+		}
 //        System.out.println(res.numOfVertices);
 //        for (int i = 0; i < res.numOfVertices; i++) {
 //            System.out.println(res.vertices.get(i).id+"   "+res.vertices.get(i).name+" ");
