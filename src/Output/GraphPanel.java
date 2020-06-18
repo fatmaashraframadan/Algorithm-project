@@ -14,10 +14,20 @@ import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.picking.PickedState;
 
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
+import static javax.swing.JOptionPane.showMessageDialog;
+
 public class GraphPanel extends Container {
     static final long serialVersionUID = 420001L;
-    //  static int x = 100;
-//    static int y= 100;
     DirectedSparseGraph<Integer, Integer> graph = null;
     VisualizationViewer<Integer, Integer> vv = null;
     PickedState<Number> pickedState = null;
@@ -26,6 +36,32 @@ public class GraphPanel extends Container {
     public GraphPanel(Graph graph1, String name, int x, int y) {
 
         construct_graph(graph1, graph1.representation, graph1.representationcost, name, x, y);
+    }
+
+    private void draw_Undirected(List<Integer> adjacencyList[] , String Frame_Name) {
+        SparseMultigraph<Integer, String> euler = new SparseMultigraph();
+        int c = 1;
+        for (int i = 0; i < adjacencyList.length; i++) {
+            if (adjacencyList[i].size() > 0) {
+                euler.addVertex(i);
+                // euler.degree(i);
+                for (int j = 0; j < adjacencyList[i].size(); j++) {
+                    euler.addEdge(Integer.toString(c++), i, adjacencyList[i].get(j));
+                }
+            }
+        }
+
+        Layout<Integer, String> layout = new CircleLayout(euler);
+        layout.setSize(new Dimension(300, 300)); // sets the initial size of the space
+        BasicVisualizationServer<Integer, String> vv = new BasicVisualizationServer<Integer, String>(layout);
+        vv.setPreferredSize(new Dimension(350, 350)); // Sets the viewing area size
+        vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
+
+        JFrame frame = new JFrame(Frame_Name);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(vv);
+        frame.pack();
+        frame.setVisible(true);
     }
 
     public void attach_to_frame(JFrame frame) {

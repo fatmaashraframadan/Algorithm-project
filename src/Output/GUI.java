@@ -265,7 +265,8 @@ public class GUI extends JFrame {
 
                 GraphPanel gp = new GraphPanel(input,"input",500,600);
               //  drawRepresentation(input ,input.representation, input.representationcost, "Input");
-                Graph output = algorithm.run(input, startPoint, endPoint);
+                List<Graph>OutPut = algorithm.run(input, startPoint, endPoint);
+           //     Graph output = algorithm.run(input, startPoint, endPoint);
 
          //       GraphPanel gp1 = new GraphPanel(output,"output");
              //   drawRepresentation(output,output.representation, output.representationcost, "Output");

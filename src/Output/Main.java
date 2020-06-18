@@ -61,7 +61,7 @@ public class Main {
 //		Graph res=algo.run(g, "s", "t");
 //		res.displayeadgs();
         Algorithms algo = new Dijkstra();
-        Graph res = algo.run(g, "s", "h");
+       // Graph res = algo.run(g, "s", "h");
 //        System.out.println(res.numOfVertices);
 //        for (int i = 0; i < res.numOfVertices; i++) {
 //            System.out.println(res.vertices.get(i).id+"   "+res.vertices.get(i).name+" ");

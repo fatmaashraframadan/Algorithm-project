@@ -10,6 +10,8 @@ public class MaximumFlow implements Algorithms{
 
 	static int x2 = 10, y2 = 0;
 	List<Edge>closededge=new ArrayList<Edge>();
+	Graph Finalresult;
+
 	public List<Edge> getPath(Graph graph, int startNode,int endnode) {
 		
 		int currentNode=startNode;
@@ -99,7 +101,8 @@ public class MaximumFlow implements Algorithms{
 		}
 		return newgraph;
 	}
-	public Graph run(Graph input,String v1,String v2) {
+	public List<Graph> run(Graph input, String v1, String v2) {
+		List<Graph> Listofgraphs=new ArrayList<Graph>();
 		List<String>v=new ArrayList<String>();
 		for (int i = 0; i < input.vertices.size(); i++) {
 			v.add(input.vertices.get(i).name);
@@ -123,11 +126,12 @@ public class MaximumFlow implements Algorithms{
 		}
 		for (int i = 0; i < closededge.size(); i++) {
 			copyGraph.addEdge(closededge.get(i).second, closededge.get(i).first, closededge.get(i).cost);
-			GraphPanel ob = new GraphPanel(copyGraph, "Step "+(i+1), x2, y2);
-			x2 += 20;y2+=5;
+			Listofgraphs.add(copyGraph);
+		//	GraphPanel ob = new GraphPanel(copyGraph, "Step "+(i+1), x2, y2);
+		//	x2 += 20;y2+=5;
 		}
 		
-		return copyGraph;
+		return Listofgraphs;
 	}
 
 }

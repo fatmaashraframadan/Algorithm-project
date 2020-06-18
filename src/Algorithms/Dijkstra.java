@@ -1,24 +1,17 @@
 package Algorithms;
 
 import Graph.Graph;
-import Graph.Vertex;
-import Graph.Edge;
-import Output.GUI;
 import Output.GUISteps;
 import Output.GraphPanel;
 
-import javax.print.attribute.standard.ReferenceUriSchemesSupported;
-import javax.swing.*;
-import java.beans.IntrospectionException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
 import java.util.Vector;
 
 public class Dijkstra implements Algorithms {
 
     String ResultSteps = "";
-
+    Graph Finalresult;
     static int x2 = 10, y2 = 0;
 
     //Return min Vertex ID.
@@ -35,7 +28,8 @@ public class Dijkstra implements Algorithms {
     }
 
 
-    public Graph run(Graph input, String v1, String v2) {
+    public List<Graph> run(Graph input, String v1, String v2) {
+        List<Graph> Listofgraphs=new ArrayList<Graph>();
         ArrayList<String> Path = new ArrayList<String>();//Vertices Names.
 
         int Distances[] = new int[input.numOfVertices];
@@ -50,8 +44,6 @@ public class Dijkstra implements Algorithms {
         //source distance is 0.
         Distances[input.getVertexId(v1)] = 0;
         Parent[input.getVertexId(v1)] = -1;
-
-        int destination = input.getVertexId(v2);
 
         for (int i = 1; i < input.numOfVertices; i++) {
 
@@ -72,7 +64,6 @@ public class Dijkstra implements Algorithms {
         Vector<Integer> v = GetPath(input, Distances, Parent, v2);
 
         ArrayList<String> Vertices = new ArrayList<>();
-        ArrayList<Edge> Edges = new ArrayList<Edge>();
 
         for (int i = 0; i < v.size(); i++) {
             Vertices.add(input.getVertexById(v.get(i)));
@@ -91,19 +82,18 @@ public class Dijkstra implements Algorithms {
         for (int i = 1; i < result.vertices.size(); i++) {
             int x = result.vertices.get(i - 1).id, y = result.vertices.get(i).id;
             result.addEdge(y, x, vec.get(vec.size() - i));
-
-            GraphPanel ob = new GraphPanel(result, name + i, x2, y2);
-            x2 += 20;y2+=5;
+            Listofgraphs.add(result);
+           // GraphPanel ob = new GraphPanel(result, name + i, x2, y2);
+           // x2 += 20;y2+=5;
         }
         GUISteps.steps += ResultSteps;
-        return result;
+        return Listofgraphs;
     }
 
 
     Vector<Integer> GetPath(Graph input, int dist[], int par[], String v2) {
         Vector<Integer> vec = new Vector<>();
         String ResultSteps2 = "";
-        Vector<Integer> vertices = new Vector<>();
         int destination = input.getVertexId(v2);
 
         for (int i = 0; i < input.numOfVertices; i++) {
@@ -133,7 +123,6 @@ public class Dijkstra implements Algorithms {
                         ResultSteps += "We Choose the vertex with the minimum distance : " + ResultSteps2.charAt(d) + " , with distance = " + input.getEdgeCost(vec2.get(d + 1), vec2.get(d)) + "\n";
 
                 }
-
                 ResultSteps += "\nTotal Distance from vertex( " + src + " ) to vertex ( " + des + " ) is : " + dist[i];
             }
         }
