@@ -24,6 +24,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
+
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class GraphPanel extends Container {
@@ -38,7 +39,7 @@ public class GraphPanel extends Container {
         construct_graph(graph1, graph1.representation, graph1.representationcost, name, x, y);
     }
 
-    private void draw_Undirected(List<Integer> adjacencyList[] , String Frame_Name) {
+    private void draw_Undirected(List<Integer> adjacencyList[], String Frame_Name) {
         SparseMultigraph<Integer, String> euler = new SparseMultigraph();
         int c = 1;
         for (int i = 0; i < adjacencyList.length; i++) {
@@ -103,7 +104,7 @@ public class GraphPanel extends Container {
         if (name.equals("input")) {
 
             frame.setLocation(750, 30);
-       //     frame.setSize(900, 900);
+            //     frame.setSize(900, 900);
 
 
         } else

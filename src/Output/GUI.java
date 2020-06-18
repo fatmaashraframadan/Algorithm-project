@@ -73,12 +73,12 @@ public class GUI extends JFrame {
      * Create the frame.
      */
 
-    private void drawRepresentation(Graph input,Integer[][] representation, Integer[][] costReprestentation, String name) {
+    private void drawRepresentation(Graph input, Integer[][] representation, Integer[][] costReprestentation, String name) {
 
-        construct_graph(input,representation, costReprestentation, name);
+        construct_graph(input, representation, costReprestentation, name);
     }
 
-    private void construct_graph(Graph input,Integer[][] nodes_list, Integer[][] costReprestentation, String name) {
+    private void construct_graph(Graph input, Integer[][] nodes_list, Integer[][] costReprestentation, String name) {
 
         int x = 1;
 
@@ -88,7 +88,7 @@ public class GUI extends JFrame {
             for (int j = 0; j < nodes_list.length; j++) {
                 if (nodes_list[i][j] == 1) {
                     String s = "COST " + x + ":" + "(" + costReprestentation[i][j] + ")";
-                    graph.addEdge(s, input.getVertexById(i),input.getVertexById(j),EdgeType.DIRECTED);
+                    graph.addEdge(s, input.getVertexById(i), input.getVertexById(j), EdgeType.DIRECTED);
                     x++;
                 }
             }
@@ -131,7 +131,6 @@ public class GUI extends JFrame {
         JTextArea textArea_1 = new JTextArea();
         textArea_1.setBounds(25, 90, 133, 22);
         contentPane.add(textArea_1);
-
 
 
         JLabel lblNewLabel_1 = new JLabel("Insert a Vertex");
@@ -193,7 +192,6 @@ public class GUI extends JFrame {
             }
         });
         contentPane.add(btnAddEdges);
-
 
 
         JButton btnAddAnotherVertex = new JButton("Add Vertex");
@@ -263,13 +261,13 @@ public class GUI extends JFrame {
                     input.addEdge(split[0], split[1], Integer.parseInt(split[2]));
                 }
 
-                GraphPanel gp = new GraphPanel(input,"input",500,600);
-              //  drawRepresentation(input ,input.representation, input.representationcost, "Input");
-                List<Graph>OutPut = algorithm.run(input, startPoint, endPoint);
-           //     Graph output = algorithm.run(input, startPoint, endPoint);
+                GraphPanel gp = new GraphPanel(input, "input", 500, 600);
+                //  drawRepresentation(input ,input.representation, input.representationcost, "Input");
+                List<Graph> OutPut = algorithm.run(input, startPoint, endPoint);
+                //     Graph output = algorithm.run(input, startPoint, endPoint);
 
-         //       GraphPanel gp1 = new GraphPanel(output,"output");
-             //   drawRepresentation(output,output.representation, output.representationcost, "Output");
+                //       GraphPanel gp1 = new GraphPanel(output,"output");
+                //   drawRepresentation(output,output.representation, output.representationcost, "Output");
 
                 textArea_5.setText(GUISteps.steps);
                 GUISteps.steps = "";

@@ -3,10 +3,13 @@ package Algorithms;
 import Graph.Graph;
 import Output.GUISteps;
 import Output.GraphPanel;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
+import javax.jnlp.IntegrationService;
+import java.io.*;
+import java.util.*;
+import java.util.LinkedList;
+import java.util.*;
 
 public class Dijkstra implements Algorithms {
 
@@ -28,8 +31,42 @@ public class Dijkstra implements Algorithms {
     }
 
 
+    Boolean IsReachable(Graph input, String src, String destination) {
+        LinkedList<Integer> temp;
+        int x = input.getVertexId(src);
+        int y = input.getVertexId(destination);
+        boolean visited[] = new boolean[input.numOfVertices];
+        LinkedList<Integer> queue = new LinkedList<Integer>();
+        visited[x] = true;
+        queue.add(x);
+
+        Iterator<Integer> i;
+
+        while ((queue.size() != 0)) {
+            x = queue.poll();
+            int n;
+            i = input.adj[x].listIterator();
+            while (i.hasNext()) {
+                n = i.next();
+                if (n == y) {
+                    return true;
+                }
+                if (!visited[n]) {
+                    visited[n] = true;
+                    queue.add(n);
+                }
+            }
+        }
+        return false;
+    }
+
     public List<Graph> run(Graph input, String v1, String v2) {
-        List<Graph> Listofgraphs=new ArrayList<Graph>();
+        List<Graph> Listofgraphs = new ArrayList<Graph>();
+        if (!IsReachable(input, v1, v2)) {
+            ResultSteps += "Destination can not be reached.\n" + "There is not path between vertex : " + v1 + " and vertex : " + v2;
+            System.out.println(ResultSteps);
+            return Listofgraphs;
+        }
         ArrayList<String> Path = new ArrayList<String>();//Vertices Names.
 
         int Distances[] = new int[input.numOfVertices];
@@ -60,7 +97,6 @@ public class Dijkstra implements Algorithms {
                 }
             }
         }
-
         Vector<Integer> v = GetPath(input, Distances, Parent, v2);
 
         ArrayList<String> Vertices = new ArrayList<>();
@@ -78,13 +114,13 @@ public class Dijkstra implements Algorithms {
             int cost = input.getEdgeCost(y, x);
             vec.add(cost);
         }
+
+
         String name = "Step ";
         for (int i = 1; i < result.vertices.size(); i++) {
             int x = result.vertices.get(i - 1).id, y = result.vertices.get(i).id;
             result.addEdge(y, x, vec.get(vec.size() - i));
             Listofgraphs.add(result);
-           // GraphPanel ob = new GraphPanel(result, name + i, x2, y2);
-           // x2 += 20;y2+=5;
         }
         GUISteps.steps += ResultSteps;
         return Listofgraphs;
@@ -121,12 +157,11 @@ public class Dijkstra implements Algorithms {
                         ResultSteps += "We Start with the source node : " + ResultSteps2.charAt(d) + " , with distance  = 0 " + "\n";
                     else
                         ResultSteps += "We Choose the vertex with the minimum distance : " + ResultSteps2.charAt(d) + " , with distance = " + input.getEdgeCost(vec2.get(d + 1), vec2.get(d)) + "\n";
-
                 }
                 ResultSteps += "\nTotal Distance from vertex( " + src + " ) to vertex ( " + des + " ) is : " + dist[i];
             }
         }
-        //System.out.println(ResultSteps);
+        System.out.println(ResultSteps);
         return vec;
     }
 }
