@@ -197,8 +197,19 @@ public class GUI extends JFrame {
         JButton btnAddAnotherVertex = new JButton("Add Vertex");
         btnAddAnotherVertex.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                getVertices.add(textArea_1.getText());
-                textArea_1.setText("");
+            	boolean correction = false;
+            	for (int i = 0; i < getVertices.size(); i++) {
+					if(textArea_1.getText().equals(getVertices.get(i))) {
+						correction = true;
+						break;
+					}
+				}
+            	if(correction) {
+            		JOptionPane.showMessageDialog(null, "This vertex is already exists");
+            	}else {
+            		getVertices.add(textArea_1.getText());
+            	}
+            	textArea_1.setText("");
             }
         });
         btnAddAnotherVertex.setBounds(25, 115, 133, 21);
