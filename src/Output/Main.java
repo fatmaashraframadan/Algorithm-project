@@ -24,7 +24,7 @@ public class Main {
 //        v.add("f");
 //        v.add("g");
 //        v.add("t");
-        Graph g = new Graph(4, true, v);
+        Graph g = new Graph(4, false, v);
         g.addEdge("s", "a", 6);
         g.addEdge("s", "b", 4);
         g.addEdge("a", "t", 5);
