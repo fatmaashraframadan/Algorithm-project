@@ -117,7 +117,7 @@ public class Dijkstra implements Algorithms {
 			copyvertices.add(input.vertices.get(i).name);
 		}
         String name = "Step ";
-        for (int i = 1; i < result.vertices.size(); i++) {
+        for (int i = result.vertices.size()-1; i >=1 ; i--) {
             int x = result.vertices.get(i - 1).id, y = result.vertices.get(i).id;
             result.addEdge(y, x, vec.get(vec.size() - i));
             Graph g = new Graph(input.numOfVertices, true, copyvertices);

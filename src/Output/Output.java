@@ -1,21 +1,15 @@
 package Output;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.*;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import Graph.Graph;
 
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
 
 public class Output extends JFrame {
 
@@ -28,22 +22,21 @@ public class Output extends JFrame {
 	 * Create the frame.
 	 */
 
-	public Output(List<Graph> result, boolean ismaxflow) {
-
+	public Output(List<Graph> result, boolean ismaxflow, boolean isDirected) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 369, 168);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		JTextArea step_number = new JTextArea();
+		JLabel step_number = new JLabel();
 		step_number.setBounds(94, 25, 55, 22);
 		contentPane.add(step_number);
 		step_num++;
-		gp = new GraphPanel(result.get(step_num), "step number :" + step_num, 10, 50,true);
+		gp = new GraphPanel(result.get(step_num), "step number :" + step_num, 10, 50,isDirected);
 		JButton back = new JButton("back");
 		JButton next = new JButton("next");
-		step_number.setText(step_num + "");
+		step_number.setText(step_num + "" + " out of "+(result.size()-1));
 		if (step_num <= 0) {
 			back.setEnabled(false);
 		}
@@ -55,8 +48,8 @@ public class Output extends JFrame {
 
 				gp.colseFrame();
 				step_num--;
-				gp = new GraphPanel(result.get(step_num), "step number :" + step_num, 10, 50,true);
-				step_number.setText(step_num + "");
+				gp = new GraphPanel(result.get(step_num), "step number :" + step_num, 10, 50,isDirected);
+				step_number.setText(step_num + "" + " out of "+(result.size()-1));
 				next.setEnabled(true);
 				if (step_num <= 0) {
 					back.setEnabled(false);
@@ -70,8 +63,9 @@ public class Output extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				gp.colseFrame();
 				step_num++;
-				gp = new GraphPanel(result.get(step_num), "step number :" + step_num, 10, 50,true);
-				step_number.setText(step_num + "");
+				gp = new GraphPanel(result.get(step_num), "step number :" + step_num, 10, 50,isDirected);
+				step_number.setText(step_num + "" + " out of "+(result.size()-1));
+
 				back.setEnabled(true);
 				if (step_num >= result.size() - 1) {
 					next.setEnabled(false);
@@ -86,9 +80,13 @@ public class Output extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				gp.colseFrame();
 				step_num = result.size() - 1;
-				gp = new GraphPanel(result.get(step_num), "step number :" + step_num, 10, 50,true);
-				step_number.setText(step_num + "");
-				back.setEnabled(false);
+				gp = new GraphPanel(result.get(step_num), "step number :" + step_num, 10, 50,isDirected);
+				step_number.setText(step_num + "" + " out of "+(result.size()-1));
+
+				if(step_num <=0) {
+					back.setEnabled(false);
+				}
+				else	back.setEnabled(true);
 				next.setEnabled(false);
 			}
 		});
@@ -100,7 +98,7 @@ public class Output extends JFrame {
 
 		if (ismaxflow) 
 		{
-			JTextArea maxFlowValue = new JTextArea();
+			JLabel maxFlowValue = new JLabel();
 			maxFlowValue.setBounds(275, 25, 55, 22);
 			contentPane.add(maxFlowValue);
 			maxFlowValue.setText(GUISteps.maxflowvalue + "");
@@ -109,7 +107,8 @@ public class Output extends JFrame {
 			maxflowvalue.setBounds(172, 26, 96, 21);
 			contentPane.add(maxflowvalue);
 		}
-		
-		
+
+
+
 	}
 }
