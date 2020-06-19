@@ -168,19 +168,22 @@ public class GUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String temp = textArea_1.getText();
 				String[] inp = temp.split(" ");
-				if (inp.length != 1||textArea_1.getText().equals("")) {
+				if (inp.length != 1 || textArea_1.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "wrong vertex input");
 				} else {
+					boolean check = true;
 					for (int i = 0; i < getVertices.size(); i++) {
 						if (textArea_1.getText().equals(getVertices.get(i))) {
-							
+							check = false;
 							JOptionPane.showMessageDialog(null, "This vertex is already exists");
 							break;
 						}
 					}
-					getVertices.add(textArea_1.getText());
-					textArea_1.setText("");
-					numberOfVertices++;
+					if (check) {
+						getVertices.add(textArea_1.getText());
+						textArea_1.setText("");
+						numberOfVertices++;
+					}
 				}
 			}
 		});
