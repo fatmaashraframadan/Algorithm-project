@@ -10,68 +10,41 @@ public class Main {
 
     public static void main(String[] args) {
         List<String> v = new ArrayList<String>();
-        v.add("s");
+   //test case 1
+       	v.add("s");
         v.add("a");
         v.add("b");
+        v.add("c");
+        v.add("d");
         v.add("t");
+/*   test case 2
+       	v.add("s");
+        v.add("a");
+        v.add("b");
+        v.add("c");
+        v.add("t");
+*/
 
-//        v.add("s");
-//        v.add("a");
-//        v.add("b");
-//        v.add("c");
-//        v.add("d");
-//        v.add("h");
-//        v.add("f");
-//        v.add("g");
-//        v.add("t");
-        Graph g = new Graph(4, false, v);
-        g.addEdge("s", "a", 6);
-        g.addEdge("s", "b", 4);
-        g.addEdge("a", "t", 5);
-        g.addEdge("b", "t", 7);
-//        g.addEdge("s", "a", 4);
-//        g.addEdge("s", "g", 8);
-//
-//        g.addEdge("g", "t", 7);
-//        g.addEdge("g", "f", 1);
-//        g.addEdge("g", "a", 11);
-//        g.addEdge("a", "b", 8);
-//
-//        g.addEdge("b", "t", 2);
-//
-//        g.addEdge("b", "c", 7);
-//
-//        g.addEdge("f", "t", 6);
-//        g.addEdge("h", "f", 2);
-
-//        g.addEdge("b", "h", 4);
-//        g.addEdge("h", "c", 14);
-//        g.addEdge("d", "c", 9);
-//        g.addEdge("h", "d", 10);
-
-		/*MaximumFlow maximumFlow=new MaximumFlow();
-		List<Edge>e= maximumFlow.getPath(g, 0, 5);
-		for (int i = 0; i < e.size(); i++) {
-			e.get(i).displayedge(); 
-		}
-		System.out.println();
-		List<Edge>e1=maximumFlow.updatePath(e);
-		for (int i = 0; i < e1.size(); i++) {
-			e1.get(i).displayedge(); 
-		}
-		System.out.println();
-		g.displayeadgs();
-		System.out.println();
-		Graph res=maximumFlow.updategraph(e1,e, g);
-		res.displayeadgs();
-		*/
-//		Algorithms algo=new MaximumFlow();
-//		Graph res=algo.run(g, "s", "t");
-//		res.displayeadgs();
-//        for (int i = 0; i < g.vertices.size(); i++) {
-//			g.vertices.get(i).display();
-//			System.out.println();
-//		}
+        Graph g = new Graph(6, false, v);
+        //test case 1
+        g.addEdge("s", "a", 10);
+        g.addEdge("s", "b", 10);
+        g.addEdge("a", "c", 4);
+        g.addEdge("c", "t", 10);
+        g.addEdge("a", "d", 8);
+        g.addEdge("d", "t", 10);
+        g.addEdge("d", "c", 6);
+        g.addEdge("b", "d", 9);
+        g.addEdge("a", "b", 2);
+        /*  //test case 2   
+        g.addEdge("s", "c", 10);
+        g.addEdge("c", "b", 5);
+        g.addEdge("b", "t", 12);
+        g.addEdge("a", "t", 4);
+        g.addEdge("c", "a", 6);
+        g.addEdge("a", "b", 5);
+        g.addEdge("s", "a", 5);
+        */
         Algorithms algo = new MaximumFlow();
         List<Graph> listofg = algo.run(g, "s", "t");
         System.out.println(GUISteps.steps);
@@ -79,11 +52,6 @@ public class Main {
 			listofg.get(i).displayeadgs();
 			System.out.println();
 		}
-//        System.out.println(res.numOfVertices);
-//        for (int i = 0; i < res.numOfVertices; i++) {
-//            System.out.println(res.vertices.get(i).id+"   "+res.vertices.get(i).name+" ");
-//        }
-        //res.displayeadgs();
     }
 
 }
