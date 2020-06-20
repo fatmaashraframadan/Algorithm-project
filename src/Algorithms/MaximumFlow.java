@@ -5,7 +5,6 @@ import java.util.List;
 
 import Graph.*;
 import Output.GUISteps;
-import Output.GraphPanel;
 
 public class MaximumFlow implements Algorithms {
 
@@ -16,10 +15,11 @@ public class MaximumFlow implements Algorithms {
 	public List<Edge> getPath(Graph graph, int startNode, int endnode) {
 
 		int currentNode = startNode;
-		int previousNode = -1;
 		List<Edge> originpath = new ArrayList<Edge>();
 		originpath.addAll(graph.edges);
 		List<Edge> path = new ArrayList<Edge>();
+		List<Integer> visited = new ArrayList<Integer>();
+		visited.add(startNode);
 		int i = 0;
 		while (true) {
 			if (i == originpath.size()) {
@@ -31,17 +31,17 @@ public class MaximumFlow implements Algorithms {
 				}
 				path.clear();
 				currentNode = startNode;
-				previousNode = -1;
+				visited.clear();
+				visited.add(startNode);
 				i = 0;
 			}
 			if (currentNode == endnode) {
 				break;
 			}
-			if (originpath.get(i).first == currentNode && originpath.get(i).second != previousNode) {
+			if (originpath.get(i).first == currentNode && !visited.contains(originpath.get(i).second)) {
 				path.add(originpath.get(i));
-				previousNode = currentNode;
+				visited.add(originpath.get(i).second);
 				currentNode = originpath.get(i).second;
-
 				i = -1;
 			}
 			i++;
@@ -74,6 +74,7 @@ public class MaximumFlow implements Algorithms {
 		for (int i = 0; i < Path.size(); i++) {
 			if (Path.get(i).cost - min == 0) {
 				closededge.add(Path.get(i));
+
 			} else {
 				Edge e = new Edge(Path.get(i).first, Path.get(i).second, Path.get(i).cost - min);
 				newPath.add(e);
@@ -85,7 +86,7 @@ public class MaximumFlow implements Algorithms {
 		return newPath;
 	}
 
-	public Graph updategraph(List<Edge> Path, List<Edge> originPath, Graph graph) {
+	public Graph updategraph(List<Edge> Path, List<Edge> originPath, Graph graph, boolean isDirectGraph) {
 		List<String> v = new ArrayList<String>();
 
 		for (int i = 0; i < graph.vertices.size(); i++) {
@@ -93,15 +94,38 @@ public class MaximumFlow implements Algorithms {
 		}
 		Graph newgraph = new Graph(graph.numOfVertices, true, v);
 
+
 		for (int i = 0; i < graph.edges.size(); i++) {
 
-			if (!originPath.contains(graph.edges.get(i)) && !closededge.contains(graph.edges.get(i))) {
-				newgraph.addEdge(graph.edges.get(i).first, graph.edges.get(i).second, graph.edges.get(i).cost);
+			
+			if (!isDirectGraph) {
+				boolean flag=true;
+				for (int j = 0; j <originPath.size(); j++) {
+					if(graph.edges.get(i).first==originPath.get(j).second&&graph.edges.get(i).second==originPath.get(j).first)
+					{
+						flag=false;
+						break;
+					}
+				}
+				if (!originPath.contains(graph.edges.get(i)) && !closededge.contains(graph.edges.get(i))&&flag) {
+					newgraph.addEdge(graph.edges.get(i).first, graph.edges.get(i).second, graph.edges.get(i).cost);
+				}
+			}
+			else
+			{
+				if (!originPath.contains(graph.edges.get(i)) && !closededge.contains(graph.edges.get(i))) {
+					newgraph.addEdge(graph.edges.get(i).first, graph.edges.get(i).second, graph.edges.get(i).cost);
+				}
 			}
 
 		}
+
 		for (int i = 0; i < Path.size(); i++) {
+
 			newgraph.addEdge(Path.get(i).first, Path.get(i).second, Path.get(i).cost);
+			if (!isDirectGraph) {
+				newgraph.addEdge(Path.get(i).second, Path.get(i).first, Path.get(i).cost);
+			}
 		}
 		return newgraph;
 	}
@@ -119,19 +143,20 @@ public class MaximumFlow implements Algorithms {
 		// System.out.println();
 		int startNode = input.getVertexId(v1);
 		int endnode = input.getVertexId(v2);
+		//copyGraph.displayeadgs();
 		while (true) {
-			// copyGraph.displayeadgs();
+			 copyGraph.displayeadgs();
 			List<Edge> newpath = getPath(copyGraph, startNode, endnode);
-			// System.out.println();
+			System.out.println();
 			if (newpath.size() == 0) {
 				break;
 			}
 
 			List<Edge> temppath = updatePath(newpath);
-			copyGraph = updategraph(temppath, newpath, copyGraph);
+			copyGraph = updategraph(temppath, newpath, copyGraph, input.isDirectGraph);
 
 		}
-		Graph res=new Graph(input.numOfVertices, true, v);
+		Graph res = new Graph(input.numOfVertices, true, v);
 		for (int i = 0; i < closededge.size(); i++) {
 			res.addEdge(closededge.get(i).second, closededge.get(i).first, closededge.get(i).cost);
 			Graph g = new Graph(input.numOfVertices, true, v);
@@ -140,7 +165,7 @@ public class MaximumFlow implements Algorithms {
 			// GraphPanel ob = new GraphPanel(copyGraph, "Step "+(i+1), x2, y2);
 			// x2 += 20;y2+=5;
 		}
-		GUISteps.steps+="\nthe maximum flow value is:"+GUISteps.maxflowvalue+"\n";
+		GUISteps.steps += "\nthe maximum flow value is:" + GUISteps.maxflowvalue + "\n";
 		return Listofgraphs;
 	}
 
