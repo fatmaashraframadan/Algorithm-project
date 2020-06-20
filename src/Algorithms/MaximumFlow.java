@@ -156,10 +156,10 @@ public class MaximumFlow implements Algorithms {
 			copyGraph = updategraph(temppath, newpath, copyGraph, input.isDirectGraph);
 
 		}
-		Graph res = new Graph(input.numOfVertices, true, v);
+		Graph res = new Graph(input.numOfVertices, input.isDirectGraph, v);
 		for (int i = 0; i < closededge.size(); i++) {
 			res.addEdge(closededge.get(i).first, closededge.get(i).second, closededge.get(i).cost);
-			Graph g = new Graph(input.numOfVertices, true, v);
+			Graph g = new Graph(input.numOfVertices,  input.isDirectGraph, v);
 			g.copyGraph(res);
 			Listofgraphs.add(g);
 			// GraphPanel ob = new GraphPanel(copyGraph, "Step "+(i+1), x2, y2);

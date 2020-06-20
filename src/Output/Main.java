@@ -10,13 +10,17 @@ public class Main {
 
     public static void main(String[] args) {
         List<String> v = new ArrayList<String>();
-   //test case 1
+        v.add("a");
+        v.add("b");
+        v.add("c");
+/*   //test case 1
        	v.add("s");
         v.add("a");
         v.add("b");
         v.add("c");
         v.add("d");
         v.add("t");
+        */
 /*   test case 2
        	v.add("s");
         v.add("a");
@@ -24,9 +28,12 @@ public class Main {
         v.add("c");
         v.add("t");
 */
-
-        Graph g = new Graph(6, false, v);
-        //test case 1
+       // s a 10 s b 10 a c 4 c t 10 a d 8 d t 10 d c 6 b d 9 a b 2 
+        Graph g = new Graph(3, false, v);
+        g.addEdge("a", "b", 2);
+        g.addEdge("b", "c", 5);
+        g.addEdge("a", "c", 4);
+       /* //test case 1
         g.addEdge("s", "a", 10);
         g.addEdge("s", "b", 10);
         g.addEdge("a", "c", 4);
@@ -36,6 +43,7 @@ public class Main {
         g.addEdge("d", "c", 6);
         g.addEdge("b", "d", 9);
         g.addEdge("a", "b", 2);
+        */
         /*  //test case 2   
         g.addEdge("s", "c", 10);
         g.addEdge("c", "b", 5);
@@ -46,7 +54,7 @@ public class Main {
         g.addEdge("s", "a", 5);
         */
         Algorithms algo = new MaximumFlow();
-        List<Graph> listofg = algo.run(g, "s", "t");
+        List<Graph> listofg = algo.run(g, "a", "c");
         System.out.println(GUISteps.steps);
         for (int i = 0; i < listofg.size(); i++) {
 			listofg.get(i).displayeadgs();

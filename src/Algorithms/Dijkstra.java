@@ -101,7 +101,7 @@ public class Dijkstra implements Algorithms {
             Vertices.add(input.getVertexById(v.get(i)));
         }
 
-        Graph result = new Graph(v.size(), true, Vertices);
+        Graph result = new Graph(v.size(), input.isDirectGraph, Vertices);
 
         Vector<Integer> vec = new Vector<>();
 
@@ -120,7 +120,7 @@ public class Dijkstra implements Algorithms {
         for (int i = result.vertices.size()-1; i >=1 ; i--) {
             int x = result.vertices.get(i - 1).id, y = result.vertices.get(i).id;
             result.addEdge(y, x, vec.get(vec.size() - i));
-            Graph g = new Graph(input.numOfVertices, true, copyvertices);
+            Graph g = new Graph(input.numOfVertices, input.isDirectGraph, copyvertices);
 			g.copyGraph(result);
 			Listofgraphs.add(g);
         }

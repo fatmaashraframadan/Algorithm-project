@@ -28,67 +28,64 @@ import java.util.List;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class GraphPanel extends Container {
-    static final long serialVersionUID = 420001L;
-    DirectedSparseGraph<Integer, Integer> graph = null;
-    VisualizationViewer<Integer, Integer> vv = null;
-    PickedState<Number> pickedState = null;
-    SparseMultigraph<Integer, String> euler = new SparseMultigraph();
-    JFrame frame;
+	static final long serialVersionUID = 420001L;
+	DirectedSparseGraph<Integer, Integer> graph = null;
+	VisualizationViewer<Integer, Integer> vv = null;
+	PickedState<Number> pickedState = null;
+	SparseMultigraph<Integer, String> euler = new SparseMultigraph();
+	JFrame frame;
 
-    public GraphPanel(Graph graph1, String name, int x, int y, boolean isDirected) {
-        construct_graph(graph1, graph1.representation, graph1.representationcost, name, x, y, isDirected);
-    }
+	public GraphPanel(Graph graph1, String name, int x, int y, boolean isDirected) {
+		construct_graph(graph1, graph1.representation, graph1.representationcost, name, x, y, isDirected);
+	}
 
-    public void attach_to_frame(JFrame frame) {
-        frame.setContentPane(vv);
-    }
+	public void attach_to_frame(JFrame frame) {
+		frame.setContentPane(vv);
+	}
 
-    public void construct_graph(Graph input, Integer[][] nodes_list, Integer[][] costReprestentation, String name,
-                                int x2, int y, boolean isDirected) {
+	public void construct_graph(Graph input, Integer[][] nodes_list, Integer[][] costReprestentation, String name,
+			int x2, int y, boolean isDirected) {
 
-        int x = 1;
-        System.out.println("isDirected : " + isDirected);
+		int x = 1;
+		System.out.println("isDirected : " + isDirected);
 
-        SparseMultigraph<String, String> graph = new SparseMultigraph<String, String>();
-        for (int i = 0; i < nodes_list.length; i++) {
+		SparseMultigraph<String, String> graph = new SparseMultigraph<String, String>();
+		for (int i = 0; i < nodes_list.length; i++) {
 
+			for (int j = 0; j < nodes_list[i].length; j++) {
+				System.out.println(nodes_list[i][j]);
+			}
+		}
 
-        for (int j = 0; j < nodes_list[i].length; j++) {
-            System.out.println(nodes_list[i][j]);
-        }}
+		for (int i = 0; i < nodes_list.length; i++) {
+			graph.addVertex(input.getVertexById(i));
+			if (isDirected) {
+				for (int j = 0; j < nodes_list[i].length; j++) {
+					if (nodes_list[i][j] >= 1) {
+						String s = "COST " + x + ":" + "(" + costReprestentation[i][j] + ")";
 
-        for (int i = 0; i < nodes_list.length; i++) {
-            graph.addVertex(input.getVertexById(i));
-            if(isDirected)
-            {
-                for (int j = 0; j < nodes_list[i].length; j++) {
-                    if (nodes_list[i][j] >= 1) {
-                        String s = "COST " + x + ":" + "(" + costReprestentation[i][j] + ")";
+						graph.addEdge(s, input.getVertexById(i), input.getVertexById(j), EdgeType.DIRECTED);
+						x++;
+					}
+				}
+			} else {
+				for (int j = 0; j < i+1; j++) {
+					if (nodes_list[i][j] >= 1) {
+						String s = "COST " + x + ":" + "(" + costReprestentation[i][j] + ")";
 
-                            graph.addEdge(s, input.getVertexById(i), input.getVertexById(j), EdgeType.DIRECTED);
-                        x++;
-                    }
-                }
-            }
-            else
-            {
-                for (int j = 0; j < i; j++) {
-                    if (nodes_list[i][j] >= 1) {
-                        String s = "COST " + x + ":" + "(" + costReprestentation[i][j] + ")";
+						graph.addEdge(s, input.getVertexById(i), input.getVertexById(j), EdgeType.UNDIRECTED);
 
-                        graph.addEdge(s, input.getVertexById(i), input.getVertexById(j), EdgeType.UNDIRECTED);
+						x++;
+					}
+				}
+			}
 
-                        x++;
-                    }
-                }
-            }
+		}
 
-        }
-
-        Layout<Integer, String> layout = new CircleLayout(graph);
-        layout.setSize(new Dimension(400, 400)); // sets the initial size of the space
-        // The BasicVisualizationServer<V,E> is parameterized by the edge types
-        BasicVisualizationServer<Integer, String> vv = new BasicVisualizationServer<Integer, String>(layout);
+		Layout<Integer, String> layout = new CircleLayout(graph);
+		layout.setSize(new Dimension(400, 400)); // sets the initial size of the space
+		// The BasicVisualizationServer<V,E> is parameterized by the edge types
+		BasicVisualizationServer<Integer, String> vv = new BasicVisualizationServer<Integer, String>(layout);
 //        if (name.equals("Input")) {
 //            x+=10;
 //            vv.setPreferredSize(new Dimension(x, 700)); //Sets the viewing area size
@@ -97,26 +94,26 @@ public class GraphPanel extends Container {
 //            vv.setPreferredSize(new Dimension(x, 480)); //Sets the viewing area size
 //            System.out.println("This : " +(x));
 //        }
-        vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
-        vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
+		vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
+		vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
 
-        frame = new JFrame(name);
-        if (name.equals("input")) {
+		frame = new JFrame(name);
+		if (name.equals("input")) {
 
-            frame.setLocation(750, 30);
-            // frame.setSize(900, 900);
+			frame.setLocation(750, 30);
+			// frame.setSize(900, 900);
 
-        } else
-            frame.setLocation(x2, y);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(vv);
-        frame.pack();
+		} else
+			frame.setLocation(x2, y);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().add(vv);
+		frame.pack();
 
-        frame.setVisible(true);
+		frame.setVisible(true);
 
-    }
+	}
 
-    public void colseFrame() {
-        frame.dispose();
-    }
+	public void colseFrame() {
+		frame.dispose();
+	}
 }

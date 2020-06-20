@@ -17,9 +17,11 @@ public class Output extends JFrame {
 	private JPanel contentPane;
 	int step_num = -1;
 	GraphPanel gp;
+
 	/**
 	 * Create the frame.
 	 */
+
 	public Output(List<Graph> result, boolean ismaxflow, boolean isDirected) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 369, 168);
@@ -28,7 +30,7 @@ public class Output extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		JLabel step_number = new JLabel();
-		step_number.setBounds(94, 25, 55, 22);
+		step_number.setBounds(94, 25, 74, 22);
 		contentPane.add(step_number);
 		step_num++;
 		gp = new GraphPanel(result.get(step_num), "step number :" + step_num, 10, 50,isDirected);
@@ -43,6 +45,7 @@ public class Output extends JFrame {
 		}
 		back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				gp.colseFrame();
 				step_num--;
 				gp = new GraphPanel(result.get(step_num), "step number :" + step_num, 10, 50,isDirected);
@@ -101,7 +104,7 @@ public class Output extends JFrame {
 			maxFlowValue.setText(GUISteps.maxflowvalue + "");
 
 			JLabel maxflowvalue = new JLabel("max flow value");
-			maxflowvalue.setBounds(180, 26, 96, 21);
+			maxflowvalue.setBounds(172, 26, 96, 21);
 			contentPane.add(maxflowvalue);
 		}
 
