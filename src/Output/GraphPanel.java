@@ -62,7 +62,7 @@ public class GraphPanel extends Container {
             if(isDirected)
             {
                 for (int j = 0; j < nodes_list[i].length; j++) {
-                    if (nodes_list[i][j] == 1) {
+                    if (nodes_list[i][j] >= 1) {
                         String s = "COST " + x + ":" + "(" + costReprestentation[i][j] + ")";
 
                             graph.addEdge(s, input.getVertexById(i), input.getVertexById(j), EdgeType.DIRECTED);
@@ -73,7 +73,7 @@ public class GraphPanel extends Container {
             else
             {
                 for (int j = 0; j < i; j++) {
-                    if (nodes_list[i][j] == 1) {
+                    if (nodes_list[i][j] >= 1) {
                         String s = "COST " + x + ":" + "(" + costReprestentation[i][j] + ")";
 
                         graph.addEdge(s, input.getVertexById(i), input.getVertexById(j), EdgeType.UNDIRECTED);
