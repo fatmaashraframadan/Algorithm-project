@@ -158,7 +158,7 @@ public class MaximumFlow implements Algorithms {
 		}
 		Graph res = new Graph(input.numOfVertices, true, v);
 		for (int i = 0; i < closededge.size(); i++) {
-			res.addEdge(closededge.get(i).second, closededge.get(i).first, closededge.get(i).cost);
+			res.addEdge(closededge.get(i).first, closededge.get(i).second, closededge.get(i).cost);
 			Graph g = new Graph(input.numOfVertices, true, v);
 			g.copyGraph(res);
 			Listofgraphs.add(g);
