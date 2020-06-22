@@ -1,10 +1,21 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Algorithms;
 
+import Graph.Edge;
+import Graph.Graph;
+import Output.GUISteps;
 import java.util.ArrayList;
 import java.util.List;
 
-import Graph.*;
-import Output.GUISteps;
+/**
+ *
+ * @author fatma
+ */
+@SuppressWarnings("unchecked")
 
 public class MaximumFlow implements Algorithms {
 
@@ -97,7 +108,7 @@ public class MaximumFlow implements Algorithms {
 
 		for (int i = 0; i < graph.edges.size(); i++) {
 
-			
+
 			if (!isDirectGraph) {
 				boolean flag=true;
 				for (int j = 0; j <originPath.size(); j++) {
@@ -145,7 +156,7 @@ public class MaximumFlow implements Algorithms {
 		int endnode = input.getVertexId(v2);
 		//copyGraph.displayeadgs();
 		while (true) {
-			 copyGraph.displayeadgs();
+			copyGraph.displayeadgs();
 			List<Edge> newpath = getPath(copyGraph, startNode, endnode);
 			System.out.println();
 			if (newpath.size() == 0) {

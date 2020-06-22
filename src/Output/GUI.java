@@ -1,271 +1,306 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Output;
-
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-//import com.sun.org.apache.bcel.internal.generic.ALOAD;
 
 import Algorithms.Algorithms;
 import Algorithms.Dijkstra;
 import Algorithms.MaximumFlow;
-import Graph.*;
+import Graph.Graph;
 
-import javax.swing.JTextArea;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JButton;
+import java.awt.FontFormatException;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.awt.event.ActionEvent;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.border.EmptyBorder;
+
+/**
+ * @author fatma
+ */
+@SuppressWarnings("unchecked")
+/*
+*
+* // s a 10 s b 10 a c 4 c t 10 a d 8 d t 10 d c 6 b d 9 a b 2
+       //s c 10 c b 5 b t 12 a t 4 c a 6 a b 5 s a 5
+* */
 
 public class GUI extends JFrame {
 
-	public GUI() {
-		getContentPane().setLayout(new BorderLayout(0, 0));
-	}
+    public GUI() {
 
-	private JPanel contentPane;
-	int numberOfVertices = 0;
-	boolean maxFlowCheck = false;
-	boolean dijkestraCheck = false;
-	ArrayList<String> getEdges = new ArrayList<String>();
-	ArrayList<String> getVertices = new ArrayList<String>();
-	String startPoint, endPoint;
-	Graph input;
+    }
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUI window = new GUI();
-					window.initialize();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    private JPanel contentPane;
+    int numberOfVertices = 0;
+    boolean maxFlowCheck = false, dijkestraCheck = false, flag = false;
+    public ArrayList<String> getEdges = new ArrayList<String>();
+    public ArrayList<String> getVertices = new ArrayList<String>();
+    String startPoint, endPoint;
+    Graph input;
+    JCheckBox unDirected = new JCheckBox("unDirected");
+    GraphPanel gp;
+    Output frame_output;
 
-	/**
-	 * Create the frame.
-	 */
+    /**
+     * Create the frame.
+     */
 
-	public void initialize() {
+    public void initialize() throws FontFormatException {
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(400, 20, 400, 650);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(400, 10, 400, 570);
 
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		setTitle("Team Number: 33");
-		setResizable(false);
-		setVisible(true);
-		contentPane.setLayout(null);
+        contentPane = new JPanel();
 
-		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setBounds(25, 90, 133, 22);
-		contentPane.add(textArea_1);
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        setTitle("Graph Algorithms");
+        setResizable(true);
+        setVisible(true);
+        contentPane.setLayout(null);
 
-		JLabel lblNewLabel_1 = new JLabel("Insert a Vertex");
-		lblNewLabel_1.setBounds(25, 75, 125, 13);
-		contentPane.add(lblNewLabel_1);
+        JTextArea textArea_1 = new JTextArea();
+        textArea_1.setBounds(25, 90, 133, 25);
+        contentPane.add(textArea_1);
 
-		JTextArea textArea_2 = new JTextArea();
-		textArea_2.setBounds(25, 160, 135, 22);
-		contentPane.add(textArea_2);
 
-		JLabel lblNewLabel_2 = new JLabel("Insert an Edge");
-		lblNewLabel_2.setBounds(25, 145, 125, 13);
-		contentPane.add(lblNewLabel_2);
+        JLabel lblNewLabel_1 = new JLabel("Insert a Vertex");
+        lblNewLabel_1.setBounds(25, 75, 125, 13);
+        contentPane.add(lblNewLabel_1);
 
-		JCheckBox maxFlowBox = new JCheckBox("Maximum Flow");
-		maxFlowBox.setBounds(10, 30, 154, 21);
-		contentPane.add(maxFlowBox);
+        JTextArea textArea_2 = new JTextArea();
+        textArea_2.setBounds(25, 160, 135, 25);
+        contentPane.add(textArea_2);
 
-		JCheckBox dijkestraBox = new JCheckBox("Dijkestra");
-		dijkestraBox.setBounds(160, 30, 105, 21);
-		contentPane.add(dijkestraBox);
+        JLabel lblNewLabel_2 = new JLabel("Insert an Edge");
+        lblNewLabel_2.setBounds(25, 145, 125, 13);
+        contentPane.add(lblNewLabel_2);
 
-		JCheckBox unDirected = new JCheckBox("unDirected");
-		unDirected.setBounds(270, 30, 105, 21);
-		contentPane.add(unDirected);
+        JCheckBox maxFlowBox = new JCheckBox("Maximum Flow");
+        maxFlowBox.setBounds(10, 40, 154, 21);
+        contentPane.add(maxFlowBox);
 
-		JLabel lblNewLabel_32 = new JLabel("Insert The start Point");
-		lblNewLabel_32.setBounds(200, 75, 125, 13);
-		contentPane.add(lblNewLabel_32);
+        JCheckBox dijkestraBox = new JCheckBox("Dijkestra");
+        dijkestraBox.setBounds(160, 40, 105, 21);
+        contentPane.add(dijkestraBox);
 
-		JTextArea textArea_3 = new JTextArea();
-		textArea_3.setBounds(200, 90, 133, 22);
-		contentPane.add(textArea_3);
+        unDirected.setBounds(270, 40, 105, 21);
+        contentPane.add(unDirected);
 
-		JLabel lblNewLabel_4 = new JLabel("Insert The end Point");
-		lblNewLabel_4.setBounds(200, 145, 125, 13);
-		contentPane.add(lblNewLabel_4);
 
-		JTextArea textArea_4 = new JTextArea();
-		textArea_4.setBounds(200, 160, 133, 22);
-		contentPane.add(textArea_4);
+        JLabel lblNewLabel_32 = new JLabel("Source Vertex");
+        lblNewLabel_32.setBounds(200, 75, 125, 13);
+        contentPane.add(lblNewLabel_32);
 
-		JLabel lblNewLabel_5 = new JLabel("Steps.....");
-		lblNewLabel_5.setBounds(25, 235, 125, 13);
-		contentPane.add(lblNewLabel_5);
+        JTextArea textArea_3 = new JTextArea();
+        textArea_3.setBounds(200, 90, 133, 25);
+        contentPane.add(textArea_3);
 
-		JTextArea textArea_5 = new JTextArea();
-		textArea_5.setBounds(25, 250, 350, 200);
-		contentPane.add(textArea_5);
+        JLabel lblNewLabel_4 = new JLabel("Destination Vertex");
+        lblNewLabel_4.setBounds(200, 145, 125, 13);
+        contentPane.add(lblNewLabel_4);
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(25, 250, 350, 200);
-		contentPane.add(scrollPane);
+        JTextArea textArea_4 = new JTextArea();
+        textArea_4.setBounds(200, 160, 133, 25);
+        contentPane.add(textArea_4);
 
-		scrollPane.setViewportView(textArea_5);
+        JLabel lblNewLabel_5 = new JLabel("Steps.....");
+        lblNewLabel_5.setBounds(25, 235, 125, 13);
+        contentPane.add(lblNewLabel_5);
 
-		JButton btnAddEdges = new JButton("Add edge");
-		btnAddEdges.setBounds(25, 185, 135, 21);
-		btnAddEdges.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				boolean check = false;
-				String temp = textArea_2.getText();
-				String[] inp = temp.split(" ");
-				if (getVertices.size() == 0) {
-					JOptionPane.showMessageDialog(null, "Please Enter vertices first");
-					textArea_2.setText("");
-					check = true;
-				} else if (inp.length != 3) {
-					JOptionPane.showMessageDialog(null, "wrong edge input");
-					textArea_2.setText("");
-					check = true;
-				} else if (getVertices.size() > 0) {
+        JTextArea textArea_5 = new JTextArea();
+        textArea_5.setBounds(25, 250, 350, 200);
+        contentPane.add(textArea_5);
 
-					for (int i = 0; i < inp.length - 1; i++) {
-						if (!getVertices.contains(inp[i])) {
-							JOptionPane.showMessageDialog(null, "this vertex: " + inp[i] + " doesn't exist");
-							check = true;
-							break;
-						}
-					}
-				}
-				if (!check) {
-					getEdges.add(textArea_2.getText());
-					textArea_2.setText("");
-				}
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(25, 250, 350, 200);
+        contentPane.add(scrollPane);
 
-			}
-		});
-		contentPane.add(btnAddEdges);
+        scrollPane.setViewportView(textArea_5);
 
-		JButton btnAddAnotherVertex = new JButton("Add Vertex");
-		btnAddAnotherVertex.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String temp = textArea_1.getText();
-				String[] inp = temp.split(" ");
-				if (inp.length != 1 || textArea_1.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "wrong vertex input");
-				} else {
-					boolean check = true;
-					for (int i = 0; i < getVertices.size(); i++) {
-						if (textArea_1.getText().equals(getVertices.get(i))) {
-							check = false;
-							JOptionPane.showMessageDialog(null, "This vertex is already exists");
-							break;
-						}
-					}
-					if (check) {
-						getVertices.add(textArea_1.getText());
-						textArea_1.setText("");
-						numberOfVertices++;
-					}
-				}
-			}
-		});
-		btnAddAnotherVertex.setBounds(25, 115, 133, 21);
-		contentPane.add(btnAddAnotherVertex);
+        JButton btnAddEdges = new JButton("Add edge");
+        btnAddEdges.setBounds(25, 185, 135, 21);
+        btnAddEdges.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                boolean check = false;
+                String temp = textArea_2.getText();
+                String[] inp = temp.split(" ");
+                if (getVertices.size() == 0) {
+                    JOptionPane.showMessageDialog(null, "Please Enter vertices first");
+                    textArea_2.setText("");
+                    check = true;
+                } else if (inp.length != 3) {
+                    JOptionPane.showMessageDialog(null, "wrong edge input");
+                    textArea_2.setText("");
+                    check = true;
+                } else if (getVertices.size() > 0) {
 
-		JLabel lblNewLabel_3 = new JLabel("Team Members : ");
-		lblNewLabel_3.setBounds(20, 440, 460, 60);
-		contentPane.add(lblNewLabel_3);
+                    for (int i = 0; i < inp.length - 1; i++) {
+                        if (!getVertices.contains(inp[i])) {
+                            JOptionPane.showMessageDialog(null, "this vertex: " + inp[i] + " doesn't exist");
+                            check = true;
+                            break;
+                        }
+                    }
+                }
+                if (!check) {
+                    getEdges.add(textArea_2.getText());
+                    textArea_2.setText("");
+                }
 
-		JLabel lblNewLabel_33 = new JLabel("1-Peter Malak 20170079        2-Fatma Ashraf 20170192");
-		lblNewLabel_33.setBounds(20, 470, 460, 60);
-		contentPane.add(lblNewLabel_33);
+            }
+        });
+        contentPane.add(btnAddEdges);
 
-		JLabel lblNewLabel_34 = new JLabel("3-Mostafa Badr 20170286     4-Mina Farid 20170310");
-		lblNewLabel_34.setBounds(20, 500, 460, 60);
-		contentPane.add(lblNewLabel_34);
 
-		JLabel lblNewLabel_35 = new JLabel("5-Nourhan Atef 20170325");
-		lblNewLabel_35.setBounds(20, 530, 460, 60);
-		contentPane.add(lblNewLabel_35);
+        JButton btnAddAnotherVertex = new JButton("Add Vertex");
+        btnAddAnotherVertex.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String temp = textArea_1.getText();
+                String[] inp = temp.split(" ");
+                if (inp.length != 1 || textArea_1.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "wrong vertex input");
+                } else {
+                    boolean check = true;
+                    for (int i = 0; i < getVertices.size(); i++) {
+                        if (textArea_1.getText().equals(getVertices.get(i))) {
+                            check = false;
+                            JOptionPane.showMessageDialog(null, "This vertex is already exists");
+                            break;
+                        }
+                    }
+                    if (check) {
+                        getVertices.add(textArea_1.getText());
+                        textArea_1.setText("");
+                        numberOfVertices++;
+                    }
+                }
+            }
+        });
 
-		JButton btnNewButton = new JButton("Run");
-		btnNewButton.setBounds(250, 560, 60, 30);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// System.out.println(getVertices);
-				input = new Graph(numberOfVertices, !unDirected.isSelected(), getVertices);
-				maxFlowCheck = maxFlowBox.isSelected();
-				dijkestraCheck = dijkestraBox.isSelected();
+        btnAddAnotherVertex.setBounds(25, 115, 133, 21);
+        contentPane.add(btnAddAnotherVertex);
 
-				startPoint = textArea_3.getText();
-				endPoint = textArea_4.getText();
 
-				numberOfVertices = getVertices.size();
-				GUISteps.steps = "Number of vertices is: " + numberOfVertices + "\n Vertices: ";
-				for (int i = 0; i < getVertices.size(); i++) {
-					GUISteps.steps += getVertices.get(i) + " ";
-				}
-				GUISteps.steps += "\n Edges: ";
+        JButton clear = new JButton("Clear");
+        clear.setBounds(100, 460, 80, 40);
 
-				for (int i = 0; i < getEdges.size(); i++) {
-					GUISteps.steps += getEdges.get(i) + " ";
-				}
-				GUISteps.steps += "\nThe Output will be....\n";
+        clear.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                getEdges.clear();
+                getVertices.clear();
 
-				Algorithms algorithm = null;
-				if (maxFlowCheck && !dijkestraCheck) {
-					algorithm = new MaximumFlow();
+                maxFlowBox.setSelected(false);
+                dijkestraBox.setSelected(false);
+                unDirected.setSelected(false);
+                textArea_3.setText("");
+                textArea_4.setText("");
+                textArea_5.setText("");
+                GUISteps.steps = "";
+                GUISteps.maxflowvalue = 0;
+                numberOfVertices = 0;
+                startPoint = "";
+                endPoint = "";
+                flag = false;
+                gp.colseFrame();
 
-				} else if (!maxFlowCheck && dijkestraCheck) {
-					algorithm = new Dijkstra();
-				} else {
-					JOptionPane.showMessageDialog(null, "Sorry, you must select at least one option");
-				}
+                System.out.println("Here");
+                frame_output.clear();
+            }
+        });
+        contentPane.add(clear);
 
-				for (int i = 0; i < getEdges.size(); i++) {
-					System.out.println("here" + getEdges.get(i));
-					String[] split = null;
-					split = getEdges.get(i).split(" ");
-					System.out.println(split[0] + "   " + split[1] + "  " + Integer.parseInt(split[2]));
-					input.addEdge(split[0], split[1], Integer.parseInt(split[2]));
-				}
+        JButton btnNewButton = new JButton("Run");
+        btnNewButton.setBounds(250, 460, 80, 40);
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // System.out.println(getVertices);
+                flag = false;
 
-				GraphPanel gp = new GraphPanel(input, "input", 500, 600, !unDirected.isSelected());
-				// drawRepresentation(input ,input.representation, input.representationcost,
-				// "Input");
-				List<Graph> OutPut = algorithm.run(input, startPoint, endPoint);
-				Output frame = new Output(OutPut, maxFlowCheck, !unDirected.isSelected());
-				frame.setLocation(500, 100);
-				frame.setVisible(true);
-				// Graph output = algorithm.run(input, startPoint, endPoint);
+                startPoint = textArea_3.getText();
+                endPoint = textArea_4.getText();
 
-				// GraphPanel gp1 = new GraphPanel(output,"output");
-				// drawRepresentation(output,output.representation, output.representationcost,
-				// "Output");
+                if (getVertices.size() == 0  ) {
+                    JOptionPane.showMessageDialog(null, "Please enter graph data");
+                }
+                else if(startPoint.equals("") || endPoint.equals("")){
+                    JOptionPane.showMessageDialog(null, "Please enter source and destination vertices");
+                }
+                else {
+                    input = new Graph(numberOfVertices, !unDirected.isSelected(), getVertices);
+                    maxFlowCheck = maxFlowBox.isSelected();
+                    dijkestraCheck = dijkestraBox.isSelected();
 
-				textArea_5.setText(GUISteps.steps);
-				GUISteps.steps = "";
-			}
-		});
-		contentPane.add(btnNewButton);
 
-	}
+                    numberOfVertices = getVertices.size();
+                    GUISteps.steps = "Number of vertices is: " + numberOfVertices + "\n Vertices: ";
+                    for (int i = 0; i < getVertices.size(); i++) {
+                        GUISteps.steps += getVertices.get(i) + " ";
+                    }
+                    GUISteps.steps += "\n Edges: ";
+
+                    for (int i = 0; i < getEdges.size(); i++) {
+                        GUISteps.steps += getEdges.get(i) + " ";
+                    }
+                    GUISteps.steps += "\nThe Output will be....\n";
+
+                    Algorithms algorithm = null;
+                    if (maxFlowCheck && !dijkestraCheck) {
+                        algorithm = new MaximumFlow();
+
+                    } else if (!maxFlowCheck && dijkestraCheck) {
+                        algorithm = new Dijkstra();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Sorry, you must select at least one option");
+                        flag = true;
+                    }
+                    for (int i = 0; i < getEdges.size(); i++) {
+                        System.out.println("here" + getEdges.get(i));
+                        String[] split = null;
+                        split = getEdges.get(i).split(" ");
+                        System.out.println(split[0] + "   " + split[1] + "  " + Integer.parseInt(split[2]));
+                        input.addEdge(split[0], split[1], Integer.parseInt(split[2]));
+                    }
+                    if (!flag) {
+
+                        gp = new GraphPanel(input, "input", 500, 600, !unDirected.isSelected(),false);
+
+                        if(!dijkestraCheck)
+                        {
+                            List<Graph> OutPut = algorithm.run(input, startPoint, endPoint);
+                            frame_output = new Output(OutPut, maxFlowCheck, !unDirected.isSelected(),false);
+                            frame_output.setLocation(500, 100);
+                            frame_output.setVisible(true);
+                        }
+                        else{
+                            List<Graph> OutPut = algorithm.run(input, startPoint, endPoint);
+                            frame_output = new Output(OutPut, maxFlowCheck, !unDirected.isSelected(),true);
+                            frame_output.setLocation(500, 100);
+                            frame_output.setVisible(true);
+                        }
+
+
+                        textArea_5.setText(GUISteps.steps);
+                        GUISteps.steps = "";
+                    }
+
+                }
+
+
+            }
+        });
+        contentPane.add(btnNewButton);
+
+    }
 }
