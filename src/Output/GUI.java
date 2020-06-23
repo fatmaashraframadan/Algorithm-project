@@ -10,11 +10,14 @@ import Algorithms.Dijkstra;
 import Algorithms.MaximumFlow;
 import Graph.Graph;
 
-import java.awt.FontFormatException;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -60,6 +63,8 @@ public class GUI extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(400, 10, 400, 570);
+
+
 
         contentPane = new JPanel();
 
@@ -129,8 +134,8 @@ public class GUI extends JFrame {
 
         scrollPane.setViewportView(textArea_5);
 
-        JButton btnAddEdges = new JButton("Add edge");
-        btnAddEdges.setBounds(25, 185, 135, 21);
+        RoundButton btnAddEdges = new RoundButton("Add edge");
+        btnAddEdges.setBounds(25, 188, 135, 25);
         btnAddEdges.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 boolean check = false;
@@ -164,7 +169,7 @@ public class GUI extends JFrame {
         contentPane.add(btnAddEdges);
 
 
-        JButton btnAddAnotherVertex = new JButton("Add Vertex");
+        RoundButton btnAddAnotherVertex = new RoundButton("Add Vertex");
         btnAddAnotherVertex.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String temp = textArea_1.getText();
@@ -189,12 +194,14 @@ public class GUI extends JFrame {
             }
         });
 
-        btnAddAnotherVertex.setBounds(25, 115, 133, 21);
+        btnAddAnotherVertex.setBounds(25, 118, 133, 25);
         contentPane.add(btnAddAnotherVertex);
 
 
-        JButton clear = new JButton("Clear");
-        clear.setBounds(100, 460, 80, 40);
+        RoundButton clear = new RoundButton("Clear");
+        clear.setBounds(60, 460, 80, 40);
+
+
 
         clear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -221,7 +228,7 @@ public class GUI extends JFrame {
         });
         contentPane.add(clear);
 
-        JButton btnNewButton = new JButton("Run");
+        RoundButton btnNewButton = new RoundButton("Run");
         btnNewButton.setBounds(250, 460, 80, 40);
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

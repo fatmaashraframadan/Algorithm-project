@@ -44,8 +44,8 @@ public class Output extends JFrame {
 		contentPane.add(step_number);
 		step_num++;
 		gp = new GraphPanel(result.get(step_num), "step number :" + step_num, 10, 50,isDirected , isDijkstra);
-		JButton back = new JButton("back");
-		JButton next = new JButton("next");
+		RoundButton back = new RoundButton("back");
+		RoundButton next = new RoundButton("next");
 		step_number.setText(step_num + "" + " out of "+(result.size()-1));
 		if (step_num <= 0) {
 			back.setEnabled(false);
@@ -85,7 +85,7 @@ public class Output extends JFrame {
 		next.setBounds(109, 74, 89, 23);
 		contentPane.add(next);
 
-		JButton final_result = new JButton("final result");
+		RoundButton final_result = new RoundButton("final result");
 		final_result.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gp.colseFrame();

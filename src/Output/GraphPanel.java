@@ -60,7 +60,6 @@ public class GraphPanel extends Container {
                     for (int j = 0; j < nodes_list[i].length; j++) {
                         if (nodes_list[i][j] >= 1) {
                             String s = "( "+input.getVertexById(j)+" ) "+": \n"+result+" + "+costReprestentation[i][j]+" = " +   (result+costReprestentation[i][j]) ;
-
                             graph.addEdge(s, input.getVertexById(i), input.getVertexById(j), EdgeType.DIRECTED);
                             result+=costReprestentation[i][j];
                         }
@@ -70,7 +69,6 @@ public class GraphPanel extends Container {
                         if (nodes_list[i][j] >= 1) {
                          //   System.out.println("Here :  " +input.getVertexById(i) + input.getVertexById(j));
                             String s = "( "+input.getVertexById(j)+" ) "+": \n"+result+" + "+costReprestentation[i][j]+" = " +   (result+costReprestentation[i][j]) ;
-
                             graph.addEdge(s, input.getVertexById(i), input.getVertexById(j), EdgeType.UNDIRECTED);
                               result+=costReprestentation[i][j];
                         }
@@ -85,8 +83,7 @@ public class GraphPanel extends Container {
                 if (isDirected) {
                     for (int j = 0; j < nodes_list[i].length; j++) {
                         if (nodes_list[i][j] >= 1) {
-                            String s = "COST " + x + ":" + "(" + costReprestentation[i][j] + ")";
-
+                            String s = x + " : " + "( " + costReprestentation[i][j] + " )";
                             graph.addEdge(s, input.getVertexById(i), input.getVertexById(j), EdgeType.DIRECTED);
                             x++;
                         }
@@ -94,10 +91,8 @@ public class GraphPanel extends Container {
                 } else {
                     for (int j = 0; j < i + 1; j++) {
                         if (nodes_list[i][j] >= 1) {
-                            String s = "COST " + x + ":" + "(" + costReprestentation[i][j] + ")";
-
+                            String s = x + " : " + "( " + costReprestentation[i][j] + " )";
                             graph.addEdge(s, input.getVertexById(i), input.getVertexById(j), EdgeType.UNDIRECTED);
-
                             x++;
                         }
                     }
@@ -114,7 +109,7 @@ public class GraphPanel extends Container {
 
         vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
         vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
-        vv.getRenderContext().setEdgeFontTransformer(new ConstantTransformer(new Font("Comic Sans MS",Font.BOLD|Font.CENTER_BASELINE|Font.TYPE1_FONT,12)));
+        vv.getRenderContext().setEdgeFontTransformer(new ConstantTransformer(new Font("Comic Sans MS",Font.BOLD|Font.CENTER_BASELINE|Font.TYPE1_FONT,10)));
 
         //vv.setFont(new Font("SANS_SERIF",Font.BOLD,28));
         frame = new JFrame(name);
