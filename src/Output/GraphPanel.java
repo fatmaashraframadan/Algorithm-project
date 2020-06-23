@@ -15,9 +15,9 @@ import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.picking.PickedState;
+import org.apache.commons.collections15.functors.ConstantTransformer;
 
-import java.awt.Container;
-import java.awt.Dimension;
+import java.awt.*;
 import javax.swing.JFrame;
 
 /**
@@ -59,7 +59,7 @@ public class GraphPanel extends Container {
                 if (isDirected) {
                     for (int j = 0; j < nodes_list[i].length; j++) {
                         if (nodes_list[i][j] >= 1) {
-                            String s = "\t\t\t\t\t\t\t"+result+" + "+costReprestentation[i][j]+" = " +   (result+costReprestentation[i][j]) ;
+                            String s = "( "+input.getVertexById(j)+" ) "+": \n"+result+" + "+costReprestentation[i][j]+" = " +   (result+costReprestentation[i][j]) ;
 
                             graph.addEdge(s, input.getVertexById(i), input.getVertexById(j), EdgeType.DIRECTED);
                             result+=costReprestentation[i][j];
@@ -68,7 +68,8 @@ public class GraphPanel extends Container {
                 } else {
                     for (int j = 0; j < i + 1; j++) {
                         if (nodes_list[i][j] >= 1) {
-                            String s = "\t\t\t\t\t\t\t"+result+" + "+costReprestentation[i][j]+" = " +   (result+costReprestentation[i][j]) ;
+                         //   System.out.println("Here :  " +input.getVertexById(i) + input.getVertexById(j));
+                            String s = "( "+input.getVertexById(j)+" ) "+": \n"+result+" + "+costReprestentation[i][j]+" = " +   (result+costReprestentation[i][j]) ;
 
                             graph.addEdge(s, input.getVertexById(i), input.getVertexById(j), EdgeType.UNDIRECTED);
                               result+=costReprestentation[i][j];
@@ -84,7 +85,7 @@ public class GraphPanel extends Container {
                 if (isDirected) {
                     for (int j = 0; j < nodes_list[i].length; j++) {
                         if (nodes_list[i][j] >= 1) {
-                            String s = "\n\n\nCOST " + x + ":" + "(" + costReprestentation[i][j] + ")";
+                            String s = "COST " + x + ":" + "(" + costReprestentation[i][j] + ")";
 
                             graph.addEdge(s, input.getVertexById(i), input.getVertexById(j), EdgeType.DIRECTED);
                             x++;
@@ -93,7 +94,7 @@ public class GraphPanel extends Container {
                 } else {
                     for (int j = 0; j < i + 1; j++) {
                         if (nodes_list[i][j] >= 1) {
-                            String s = "\n\n\nCOST " + x + ":" + "(" + costReprestentation[i][j] + ")";
+                            String s = "COST " + x + ":" + "(" + costReprestentation[i][j] + ")";
 
                             graph.addEdge(s, input.getVertexById(i), input.getVertexById(j), EdgeType.UNDIRECTED);
 
@@ -107,13 +108,15 @@ public class GraphPanel extends Container {
 
 
         Layout<Integer, String> layout = new CircleLayout(graph);
-        layout.setSize(new Dimension(400, 400)); // sets the initial size of the space
+        layout.setSize(new Dimension(450, 450)); // sets the initial size of the space
         // The BasicVisualizationServer<V,E> is parameterized by the edge types
         BasicVisualizationServer<Integer, String> vv = new BasicVisualizationServer<Integer, String>(layout);
 
         vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
         vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
+        vv.getRenderContext().setEdgeFontTransformer(new ConstantTransformer(new Font("Comic Sans MS",Font.BOLD|Font.CENTER_BASELINE|Font.TYPE1_FONT,12)));
 
+        //vv.setFont(new Font("SANS_SERIF",Font.BOLD,28));
         frame = new JFrame(name);
         if (name.equals("input")) {
 
