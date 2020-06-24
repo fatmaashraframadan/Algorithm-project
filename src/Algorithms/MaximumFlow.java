@@ -40,15 +40,18 @@ public class MaximumFlow implements Algorithms {
 				for (int j = 0; j < path.size(); j++) {
 					originpath.remove(path.get(j));
 				}
+				
 				path.clear();
 				currentNode = startNode;
 				visited.clear();
 				visited.add(startNode);
 				i = 0;
+				continue;
 			}
 			if (currentNode == endnode) {
 				break;
 			}
+			
 			if (originpath.get(i).first == currentNode && !visited.contains(originpath.get(i).second)) {
 				path.add(originpath.get(i));
 				visited.add(originpath.get(i).second);
@@ -84,12 +87,12 @@ public class MaximumFlow implements Algorithms {
 		GUISteps.steps += "the minimum value is :" + min + "\n";
 		for (int i = 0; i < Path.size(); i++) {
 			if (Path.get(i).cost - min == 0) {
-				closededge.add(Path.get(i));
+				closededge.add(new Edge(Path.get(i).first, Path.get(i).second, 0));
 
 			} else {
 				Edge e = new Edge(Path.get(i).first, Path.get(i).second, Path.get(i).cost - min);
 				newPath.add(e);
-				Edge e1 = new Edge(Path.get(i).first, Path.get(i).second, min);
+				Edge e1 = new Edge(Path.get(i).first, Path.get(i).second,  Path.get(i).cost - min);
 				closededge.add(e1);
 			}
 
