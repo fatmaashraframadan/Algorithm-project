@@ -43,7 +43,7 @@ public class GUI extends JFrame {
     public GUI() {
 
     }
-
+int counter=0;
     private JPanel contentPane;
     int numberOfVertices = 0;
     boolean maxFlowCheck = false, dijkestraCheck = false, flag = false;
@@ -63,7 +63,6 @@ public class GUI extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(400, 10, 400, 570);
-
 
 
         contentPane = new JPanel();
@@ -202,7 +201,6 @@ public class GUI extends JFrame {
         clear.setBounds(60, 460, 80, 40);
 
 
-
         clear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 getEdges.clear();
@@ -219,10 +217,9 @@ public class GUI extends JFrame {
                 numberOfVertices = 0;
                 startPoint = "";
                 endPoint = "";
-                flag = false;
+                flag = false;counter=0;
                 gp.colseFrame();
 
-                System.out.println("Here");
                 frame_output.clear();
             }
         });
@@ -233,18 +230,25 @@ public class GUI extends JFrame {
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // System.out.println(getVertices);
+                if(counter>0)
+                {
+                    gp.colseFrame();
+                    frame_output.clear();
+                }
+
                 flag = false;
+                GUISteps.maxflowvalue = 0;
+                GUISteps.steps = "";
+
 
                 startPoint = textArea_3.getText();
                 endPoint = textArea_4.getText();
 
-                if (getVertices.size() == 0  ) {
+                if (getVertices.size() == 0) {
                     JOptionPane.showMessageDialog(null, "Please enter graph data");
-                }
-                else if(startPoint.equals("") || endPoint.equals("")){
+                } else if (startPoint.equals("") || endPoint.equals("")) {
                     JOptionPane.showMessageDialog(null, "Please enter source and destination vertices");
-                }
-                else {
+                } else {
                     input = new Graph(numberOfVertices, !unDirected.isSelected(), getVertices);
                     maxFlowCheck = maxFlowBox.isSelected();
                     dijkestraCheck = dijkestraBox.isSelected();
@@ -280,19 +284,17 @@ public class GUI extends JFrame {
                         input.addEdge(split[0], split[1], Integer.parseInt(split[2]));
                     }
                     if (!flag) {
+                        counter++;
+                        gp = new GraphPanel(input, "input", 500, 600, !unDirected.isSelected(), false);
 
-                        gp = new GraphPanel(input, "input", 500, 600, !unDirected.isSelected(),false);
-
-                        if(!dijkestraCheck)
-                        {
+                        if (!dijkestraCheck) {
                             List<Graph> OutPut = algorithm.run(input, startPoint, endPoint);
-                            frame_output = new Output(OutPut, maxFlowCheck, !unDirected.isSelected(),false);
+                            frame_output = new Output(OutPut, maxFlowCheck, !unDirected.isSelected(), false);
                             frame_output.setLocation(500, 100);
                             frame_output.setVisible(true);
-                        }
-                        else{
+                        } else {
                             List<Graph> OutPut = algorithm.run(input, startPoint, endPoint);
-                            frame_output = new Output(OutPut, maxFlowCheck, !unDirected.isSelected(),true);
+                            frame_output = new Output(OutPut, maxFlowCheck, !unDirected.isSelected(), true);
                             frame_output.setLocation(500, 100);
                             frame_output.setVisible(true);
                         }

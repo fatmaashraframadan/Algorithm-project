@@ -26,7 +26,7 @@ public class RoundButton extends Component {
     public RoundButton(String label) {
         this.setBackground(Color.gray);
         this.setForeground(Color.white);
-        this.setFont(new  Font("Arial",Font.BOLD | Font.CENTER_BASELINE ,14));
+        this.setFont(new Font("Arial", Font.BOLD | Font.CENTER_BASELINE, 14));
 
 
         this.label = label;

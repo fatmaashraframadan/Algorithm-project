@@ -34,8 +34,8 @@ public class GraphPanel extends Container {
     SparseMultigraph<Integer, String> euler = new SparseMultigraph();
     JFrame frame;
 
-    public GraphPanel(Graph graph1, String name, int x, int y, boolean isDirected,boolean isDijkstra) {
-        construct_graph(graph1, graph1.representation, graph1.representationcost, name, x, y, isDirected , isDijkstra);
+    public GraphPanel(Graph graph1, String name, int x, int y, boolean isDirected, boolean isDijkstra) {
+        construct_graph(graph1, graph1.representation, graph1.representationcost, name, x, y, isDirected, isDijkstra);
     }
 
     public void attach_to_frame(JFrame frame) {
@@ -43,7 +43,7 @@ public class GraphPanel extends Container {
     }
 
     public void construct_graph(Graph input, Integer[][] nodes_list, Integer[][] costReprestentation, String name,
-                                int x2, int y, boolean isDirected,boolean isDijkstra) {
+                                int x2, int y, boolean isDirected, boolean isDijkstra) {
 
         int x = 1;
         System.out.println("isDirected : " + isDirected);
@@ -51,33 +51,31 @@ public class GraphPanel extends Container {
         SparseMultigraph<String, String> graph = new SparseMultigraph<String, String>();
 
 
-        if(isDijkstra)
-        {
-            int result=0;
+        if (isDijkstra) {
+            int result = 0;
             for (int i = 0; i < nodes_list.length; i++) {
                 graph.addVertex(input.getVertexById(i));
                 if (isDirected) {
                     for (int j = 0; j < nodes_list[i].length; j++) {
                         if (nodes_list[i][j] >= 1) {
-                            String s = "( "+input.getVertexById(j)+" ) "+": \n"+result+" + "+costReprestentation[i][j]+" = " +   (result+costReprestentation[i][j]) ;
+                            String s = "( " + input.getVertexById(j) + " ) " + ": \n" + result + " + " + costReprestentation[i][j] + " = " + (result + costReprestentation[i][j]);
                             graph.addEdge(s, input.getVertexById(i), input.getVertexById(j), EdgeType.DIRECTED);
-                            result+=costReprestentation[i][j];
+                            result += costReprestentation[i][j];
                         }
                     }
                 } else {
                     for (int j = 0; j < i + 1; j++) {
                         if (nodes_list[i][j] >= 1) {
-                         //   System.out.println("Here :  " +input.getVertexById(i) + input.getVertexById(j));
-                            String s = "( "+input.getVertexById(j)+" ) "+": \n"+result+" + "+costReprestentation[i][j]+" = " +   (result+costReprestentation[i][j]) ;
+                            //   System.out.println("Here :  " +input.getVertexById(i) + input.getVertexById(j));
+                            String s = "( " + input.getVertexById(j) + " ) " + ": \n" + result + " + " + costReprestentation[i][j] + " = " + (result + costReprestentation[i][j]);
                             graph.addEdge(s, input.getVertexById(i), input.getVertexById(j), EdgeType.UNDIRECTED);
-                              result+=costReprestentation[i][j];
+                            result += costReprestentation[i][j];
                         }
                     }
                 }
 
             }
-        }
-        else{
+        } else {
             for (int i = 0; i < nodes_list.length; i++) {
                 graph.addVertex(input.getVertexById(i));
                 if (isDirected) {
@@ -109,7 +107,7 @@ public class GraphPanel extends Container {
 
         vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
         vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller());
-        vv.getRenderContext().setEdgeFontTransformer(new ConstantTransformer(new Font("Comic Sans MS",Font.BOLD|Font.CENTER_BASELINE|Font.TYPE1_FONT,10)));
+        vv.getRenderContext().setEdgeFontTransformer(new ConstantTransformer(new Font("Comic Sans MS", Font.BOLD | Font.CENTER_BASELINE | Font.TYPE1_FONT, 10)));
 
         //vv.setFont(new Font("SANS_SERIF",Font.BOLD,28));
         frame = new JFrame(name);
