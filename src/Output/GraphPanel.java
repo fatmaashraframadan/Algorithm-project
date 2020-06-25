@@ -111,7 +111,7 @@ public class GraphPanel extends Container {
 
         //vv.setFont(new Font("SANS_SERIF",Font.BOLD,28));
         frame = new JFrame(name);
-        if (name.equals("input")) {
+        if (name.equals("Original Graph")) {
 
             frame.setLocation(750, 30);
         } else

@@ -7,6 +7,7 @@ package Algorithms;
 
 import Graph.Graph;
 import Output.GUISteps;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -14,15 +15,13 @@ import java.util.List;
 import java.util.Vector;
 
 /**
- *
  * @author fatma
  */
 @SuppressWarnings("unchecked")
 
 public class Dijkstra implements Algorithms {
 
-    String ResultSteps = "";
-    Graph Finalresult;
+    public static String ResultSteps = "";
     static int x2 = 10, y2 = 0;
 
     //Return min Vertex ID.
@@ -38,7 +37,7 @@ public class Dijkstra implements Algorithms {
         return min_index;
     }
 
-
+    //To Ensure that the destination is reachable from src
     Boolean IsReachable(Graph input, String src, String destination) {
         LinkedList<Integer> temp;
         int x = input.getVertexId(src);
@@ -71,7 +70,7 @@ public class Dijkstra implements Algorithms {
     public List<Graph> run(Graph input, String v1, String v2) {
         List<Graph> Listofgraphs = new ArrayList<Graph>();
         if (!IsReachable(input, v1, v2)) {
-            ResultSteps += "Destination can not be reached.\n" + "There is not path between vertex : " + v1 + " and vertex : " + v2;
+            ResultSteps = "Destination can not be reached.\n\n" + "There is not path between vertex : " + v1 + " and vertex : " + v2;
             //System.out.println(ResultSteps);
             return Listofgraphs;
         }
@@ -124,18 +123,25 @@ public class Dijkstra implements Algorithms {
         }
 
 
-		List<String> copyvertices = new ArrayList<String>();
-		for (int i = 0; i < input.vertices.size(); i++) {
-			copyvertices.add(input.vertices.get(i).name);
-		}
-        String name = "Step ";
-        for (int i = result.vertices.size()-1; i >=1 ; i--) {
-            int x = result.vertices.get(i - 1).id, y = result.vertices.get(i).id;
-            result.addEdge(y, x, vec.get(vec.size() - i));
-            Graph g = new Graph(input.numOfVertices, input.isDirectGraph, copyvertices);
-			g.copyGraph(result);
-			Listofgraphs.add(g);
+        List<String> copyvertices = new ArrayList<String>();
+        for (int i = 0; i < input.vertices.size(); i++) {
+            copyvertices.add(input.vertices.get(i).name);
         }
+        for (int i = 0; i < vec.size(); i++) {
+            System.out.println(vec.get(i));
+        }
+
+        for (int i = result.vertices.size() - 1; i >= 1; i--) {
+
+            int x = result.vertices.get(i - 1).id, y = result.vertices.get(i).id;
+            result.addEdge(y, x, vec.get(i - 1));
+
+            Graph g = new Graph(input.numOfVertices, input.isDirectGraph, copyvertices);
+            g.copyGraph(result);
+
+            Listofgraphs.add(g);
+        }
+
         GUISteps.steps += ResultSteps;
         return Listofgraphs;
     }
@@ -160,8 +166,6 @@ public class Dijkstra implements Algorithms {
                     temp = par[temp];
                 }
 
-                String src = String.valueOf(ResultSteps2.charAt(ResultSteps2.length() - 1));
-                String des = String.valueOf(ResultSteps2.charAt(0));
 
                 Vector<Integer> vec2 = new Vector<>();
                 vec2 = vec;
@@ -172,10 +176,8 @@ public class Dijkstra implements Algorithms {
                     else
                         ResultSteps += "We Choose the vertex with the minimum distance : " + ResultSteps2.charAt(d) + " , with distance = " + input.getEdgeCost(vec2.get(d + 1), vec2.get(d)) + "\n";
                 }
-                ResultSteps += "\nTotal Distance from vertex( " + src + " ) to vertex ( " + des + " ) is : " + dist[i];
             }
         }
-        //System.out.println(ResultSteps);
         return vec;
     }
 }

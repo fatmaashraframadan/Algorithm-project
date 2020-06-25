@@ -6,12 +6,11 @@
 package Output;
 
 /**
- *
  * @author fatma
  */
 @SuppressWarnings("unchecked")
 
 public class GUISteps {
-	public static String steps = "";
-	public static int maxflowvalue=0;
+    public static String steps = "";
+    public static int maxflowvalue = 0;
 }

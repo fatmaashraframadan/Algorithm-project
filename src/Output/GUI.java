@@ -18,14 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -43,7 +36,8 @@ public class GUI extends JFrame {
     public GUI() {
 
     }
-int counter=0;
+
+    int counter = 0, counter2 = 0;
     private JPanel contentPane;
     int numberOfVertices = 0;
     boolean maxFlowCheck = false, dijkestraCheck = false, flag = false;
@@ -74,7 +68,7 @@ int counter=0;
         setVisible(true);
         contentPane.setLayout(null);
 
-        JTextArea textArea_1 = new JTextArea();
+        JTextField textArea_1 = new JTextField();
         textArea_1.setBounds(25, 90, 133, 25);
         contentPane.add(textArea_1);
 
@@ -83,7 +77,7 @@ int counter=0;
         lblNewLabel_1.setBounds(25, 75, 125, 13);
         contentPane.add(lblNewLabel_1);
 
-        JTextArea textArea_2 = new JTextArea();
+        JTextField textArea_2 = new JTextField();
         textArea_2.setBounds(25, 160, 135, 25);
         contentPane.add(textArea_2);
 
@@ -107,7 +101,8 @@ int counter=0;
         lblNewLabel_32.setBounds(200, 75, 125, 13);
         contentPane.add(lblNewLabel_32);
 
-        JTextArea textArea_3 = new JTextArea();
+
+        JTextField textArea_3 = new JTextField();
         textArea_3.setBounds(200, 90, 133, 25);
         contentPane.add(textArea_3);
 
@@ -115,7 +110,7 @@ int counter=0;
         lblNewLabel_4.setBounds(200, 145, 125, 13);
         contentPane.add(lblNewLabel_4);
 
-        JTextArea textArea_4 = new JTextArea();
+        JTextField textArea_4 = new JTextField();
         textArea_4.setBounds(200, 160, 133, 25);
         contentPane.add(textArea_4);
 
@@ -125,6 +120,7 @@ int counter=0;
 
         JTextArea textArea_5 = new JTextArea();
         textArea_5.setBounds(25, 250, 350, 200);
+        textArea_5.setEditable(false);
         contentPane.add(textArea_5);
 
         JScrollPane scrollPane = new JScrollPane();
@@ -217,7 +213,9 @@ int counter=0;
                 numberOfVertices = 0;
                 startPoint = "";
                 endPoint = "";
-                flag = false;counter=0;
+                flag = false;
+                counter = 0;
+                counter2 = 0;
                 gp.colseFrame();
 
                 frame_output.clear();
@@ -230,11 +228,8 @@ int counter=0;
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // System.out.println(getVertices);
-                if(counter>0)
-                {
-                    gp.colseFrame();
-                    frame_output.clear();
-                }
+                if (counter > 0) gp.colseFrame();
+                if (counter2 > 0) frame_output.clear();
 
                 flag = false;
                 GUISteps.maxflowvalue = 0;
@@ -264,7 +259,7 @@ int counter=0;
                     for (int i = 0; i < getEdges.size(); i++) {
                         GUISteps.steps += getEdges.get(i) + " ";
                     }
-                    GUISteps.steps += "\nThe Output will be....\n";
+                    //GUISteps.steps += "\nThe Output will be....\n";
 
                     Algorithms algorithm = null;
                     if (maxFlowCheck && !dijkestraCheck) {
@@ -277,29 +272,32 @@ int counter=0;
                         flag = true;
                     }
                     for (int i = 0; i < getEdges.size(); i++) {
-                        System.out.println("here" + getEdges.get(i));
                         String[] split = null;
                         split = getEdges.get(i).split(" ");
-                        System.out.println(split[0] + "   " + split[1] + "  " + Integer.parseInt(split[2]));
                         input.addEdge(split[0], split[1], Integer.parseInt(split[2]));
                     }
                     if (!flag) {
                         counter++;
-                        gp = new GraphPanel(input, "input", 500, 600, !unDirected.isSelected(), false);
+                        gp = new GraphPanel(input, "Original Graph", 500, 600, !unDirected.isSelected(), false);
 
                         if (!dijkestraCheck) {
+                            counter2++;
                             List<Graph> OutPut = algorithm.run(input, startPoint, endPoint);
                             frame_output = new Output(OutPut, maxFlowCheck, !unDirected.isSelected(), false);
                             frame_output.setLocation(500, 100);
                             frame_output.setVisible(true);
                         } else {
                             List<Graph> OutPut = algorithm.run(input, startPoint, endPoint);
-                            frame_output = new Output(OutPut, maxFlowCheck, !unDirected.isSelected(), true);
-                            frame_output.setLocation(500, 100);
-                            frame_output.setVisible(true);
+                            if (OutPut.size() == 0) {
+                                GUISteps.steps = Dijkstra.ResultSteps;
+
+                            } else {
+                                counter2++;
+                                frame_output = new Output(OutPut, maxFlowCheck, !unDirected.isSelected(), true);
+                                frame_output.setLocation(500, 100);
+                                frame_output.setVisible(true);
+                            }
                         }
-
-
                         textArea_5.setText(GUISteps.steps);
                         GUISteps.steps = "";
                     }
