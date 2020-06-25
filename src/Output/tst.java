@@ -1,6 +1,4 @@
 package Output;
-
-import oracle.jrockit.jfr.JFR;
 import org.apache.commons.collections15.functors.ConstantTransformer;
 
 import javax.swing.*;

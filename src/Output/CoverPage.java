@@ -45,7 +45,7 @@ public class CoverPage extends JFrame {
         RoundButton b = new RoundButton("Start");
         b.setForeground(Color.black);
         b.setEnabled(true);
-        b.setBounds(20, 600, 80, 50);
+        b.setBounds(20, 590, 85, 60);
         b.setBackground(Color.lightGray);
 
         b.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
@@ -59,6 +59,7 @@ public class CoverPage extends JFrame {
                         try {
 
                             GUI window = new GUI();
+                            
                             window.initialize();
                         } catch (Exception e) {
                             e.printStackTrace();
