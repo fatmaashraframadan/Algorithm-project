@@ -26,16 +26,11 @@ import javax.swing.border.EmptyBorder;
  */
 @SuppressWarnings("unchecked")
 /*
-*
-* // s a 10 s b 10 a c 4 c t 10 a d 8 d t 10 d c 6 b d 9 a b 2
-       //s c 10 c b 5 b t 12 a t 4 c a 6 a b 5 s a 5
-* */
+*/
 
 public class GUI extends JFrame {
 
-    public GUI() {
-
-    }
+    public GUI() {}
 
     int counter = 0, counter2 = 0;
     private JPanel contentPane;
@@ -45,7 +40,6 @@ public class GUI extends JFrame {
     public ArrayList<String> getVertices = new ArrayList<String>();
     String startPoint, endPoint;
     Graph input;
-    JCheckBox unDirected = new JCheckBox("unDirected");
     GraphPanel gp;
     Output frame_output;
 
@@ -56,7 +50,7 @@ public class GUI extends JFrame {
     public void initialize() throws FontFormatException {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(400, 10, 400, 570);
+        setBounds(400, 10, 550, 630);
 
 
         contentPane = new JPanel();
@@ -69,68 +63,82 @@ public class GUI extends JFrame {
         contentPane.setLayout(null);
 
         JTextField textArea_1 = new JTextField();
-        textArea_1.setBounds(25, 90, 133, 25);
+        textArea_1.setBounds(25, 40, 180, 25);
         contentPane.add(textArea_1);
 
 
         JLabel lblNewLabel_1 = new JLabel("Insert a Vertex");
-        lblNewLabel_1.setBounds(25, 75, 125, 13);
+        lblNewLabel_1.setBounds(25, 20, 150, 13);
+        lblNewLabel_1.setFont(new Font(Font.SANS_SERIF,Font.BOLD,14));
         contentPane.add(lblNewLabel_1);
 
         JTextField textArea_2 = new JTextField();
-        textArea_2.setBounds(25, 160, 135, 25);
+        textArea_2.setBounds(25, 130, 180, 25);
         contentPane.add(textArea_2);
 
         JLabel lblNewLabel_2 = new JLabel("Insert an Edge");
-        lblNewLabel_2.setBounds(25, 145, 125, 13);
+        lblNewLabel_2.setBounds(25, 110, 150, 13);
+        lblNewLabel_2.setFont(new Font(Font.SANS_SERIF,Font.BOLD,14));
         contentPane.add(lblNewLabel_2);
 
         JCheckBox maxFlowBox = new JCheckBox("Maximum Flow");
-        maxFlowBox.setBounds(10, 40, 154, 21);
+        maxFlowBox.setBounds(15, 490, 154, 21);
+        maxFlowBox.setFont(new Font(Font.SANS_SERIF,Font.BOLD,14));
         contentPane.add(maxFlowBox);
 
         JCheckBox dijkestraBox = new JCheckBox("Dijkestra");
-        dijkestraBox.setBounds(160, 40, 105, 21);
+        dijkestraBox.setBounds(225, 490, 105, 21);
+        dijkestraBox.setFont(new Font(Font.SANS_SERIF,Font.BOLD,14));
         contentPane.add(dijkestraBox);
 
-        unDirected.setBounds(270, 40, 105, 21);
+        JCheckBox unDirected = new JCheckBox("unDirected");
+        unDirected.setBounds(425, 490, 105, 21);
+        unDirected.setFont(new Font(Font.SANS_SERIF,Font.BOLD,14));
         contentPane.add(unDirected);
 
 
         JLabel lblNewLabel_32 = new JLabel("Source Vertex");
-        lblNewLabel_32.setBounds(200, 75, 125, 13);
+        lblNewLabel_32.setBounds(280, 20, 150, 13);
+        lblNewLabel_32.setFont(new Font(Font.SANS_SERIF,Font.BOLD,14));
         contentPane.add(lblNewLabel_32);
 
 
         JTextField textArea_3 = new JTextField();
-        textArea_3.setBounds(200, 90, 133, 25);
+        textArea_3.setBounds(280, 40, 180, 25);
         contentPane.add(textArea_3);
 
         JLabel lblNewLabel_4 = new JLabel("Destination Vertex");
-        lblNewLabel_4.setBounds(200, 145, 125, 13);
+        lblNewLabel_4.setBounds(280, 110, 150, 13);
+        lblNewLabel_4.setFont(new Font(Font.SANS_SERIF,Font.BOLD,14));
         contentPane.add(lblNewLabel_4);
 
         JTextField textArea_4 = new JTextField();
-        textArea_4.setBounds(200, 160, 133, 25);
+        textArea_4.setBounds(280, 130, 180, 25);
         contentPane.add(textArea_4);
 
-        JLabel lblNewLabel_5 = new JLabel("Steps.....");
-        lblNewLabel_5.setBounds(25, 235, 125, 13);
+        JLabel lblNewLabel_5 = new JLabel("Steps...");
+        lblNewLabel_5.setBounds(20, 210, 125, 13);
+        lblNewLabel_5.setFont(new Font(Font.SANS_SERIF,Font.BOLD,14));
         contentPane.add(lblNewLabel_5);
 
         JTextArea textArea_5 = new JTextArea();
-        textArea_5.setBounds(25, 250, 350, 200);
+        textArea_5.setBounds(15, 230, 500, 250);
+        textArea_5.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,14));
         textArea_5.setEditable(false);
         contentPane.add(textArea_5);
 
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(25, 250, 350, 200);
+        scrollPane.setBounds(15, 230, 500, 250);
+        scrollPane.setFont(new Font(Font.SANS_SERIF,Font.PLAIN,14));
         contentPane.add(scrollPane);
 
         scrollPane.setViewportView(textArea_5);
 
         RoundButton btnAddEdges = new RoundButton("Add edge");
-        btnAddEdges.setBounds(25, 188, 135, 25);
+        btnAddEdges.setBounds(50, 160, 135, 25);
+        btnAddEdges.setFont(new Font(Font.SANS_SERIF,Font.BOLD,14));
+        btnAddEdges.setBackground(new Color(211,211,211));
+
         btnAddEdges.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 boolean check = false;
@@ -165,6 +173,8 @@ public class GUI extends JFrame {
 
 
         RoundButton btnAddAnotherVertex = new RoundButton("Add Vertex");
+        btnAddAnotherVertex.setFont(new Font(Font.SANS_SERIF,Font.BOLD,14));
+        btnAddAnotherVertex.setBackground(new Color(211,211,211));
         btnAddAnotherVertex.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String temp = textArea_1.getText();
@@ -189,12 +199,13 @@ public class GUI extends JFrame {
             }
         });
 
-        btnAddAnotherVertex.setBounds(25, 118, 133, 25);
+        btnAddAnotherVertex.setBounds(50, 70, 133, 25);
         contentPane.add(btnAddAnotherVertex);
 
 
         RoundButton clear = new RoundButton("Clear");
-        clear.setBounds(60, 460, 80, 40);
+        clear.setBounds(120, 530, 80, 40);
+        clear.setBackground(new Color(211,211,211));
 
 
         clear.addActionListener(new ActionListener() {
@@ -224,7 +235,8 @@ public class GUI extends JFrame {
         contentPane.add(clear);
 
         RoundButton btnNewButton = new RoundButton("Run");
-        btnNewButton.setBounds(250, 460, 80, 40);
+        btnNewButton.setBounds(325, 530, 80, 40);
+        btnNewButton.setBackground(new Color(211,211,211));
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // System.out.println(getVertices);

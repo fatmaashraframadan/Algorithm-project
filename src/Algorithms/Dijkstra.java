@@ -172,7 +172,7 @@ public class Dijkstra implements Algorithms {
 
                 for (int d = ResultSteps2.length() - 1; d >= 0; d--) {
                     if (d == ResultSteps2.length() - 1)
-                        ResultSteps += "We Start with the source node : " + ResultSteps2.charAt(d) + " , with distance  = 0 " + "\n";
+                        ResultSteps += "\nWe Start with the source node : " + ResultSteps2.charAt(d) + " , with distance  = 0 " + "\n";
                     else
                         ResultSteps += "We Choose the vertex with the minimum distance : " + ResultSteps2.charAt(d) + " , with distance = " + input.getEdgeCost(vec2.get(d + 1), vec2.get(d)) + "\n";
                 }
