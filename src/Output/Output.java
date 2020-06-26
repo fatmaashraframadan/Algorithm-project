@@ -126,6 +126,7 @@ public class Output extends JFrame {
         JTextArea steps = new JTextArea();
         scrollPane.setViewportView(steps);
         steps.setText(GUISteps.steps);
+        steps.setEditable(false);
 
         if (ismaxflow) 
         {

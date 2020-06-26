@@ -60,7 +60,7 @@ public class MaximumFlow implements Algorithms {
             i++;
         }
         if (path.size() != 0) {
-            GUISteps.steps += "the path is ";
+            GUISteps.steps += "\nThe path is ";
 
             for (int j = 0; j < path.size(); j++) {
                 GUISteps.steps += graph.getVertexById(path.get(j).first) + " ";
@@ -83,7 +83,7 @@ public class MaximumFlow implements Algorithms {
         }
 
         GUISteps.maxflowvalue += min;
-        GUISteps.steps += "the minimum value is :" + min + "\n";
+        GUISteps.steps += "the minimum value is :" + min ;
 
         for (int i = 0; i < Path.size(); i++) {
             if (Path.get(i).cost - min == 0) {
