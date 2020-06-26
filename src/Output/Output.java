@@ -7,6 +7,7 @@ package Output;
 
 import Graph.Graph;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -17,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
-import java.awt.Font;
 
 /**
  * @author fatma
@@ -46,9 +46,12 @@ public class Output extends JFrame {
         step_number.setBounds(111, 27, 89, 23);
         contentPane.add(step_number);
         step_num++;
-        gp = new GraphPanel(result.get(step_num), "step number :" + step_num, 10, 50, isDirected, isDijkstra);
-        JButton back = new JButton("back");
-        JButton next = new JButton("next");
+        gp = new GraphPanel(result.get(step_num), "Step number: " + step_num, 10, 50, isDirected, isDijkstra);
+        JButton back = new JButton("Previous step");
+        JButton next = new JButton("Next step");
+        next.setBackground(new Color(165, 198, 255));
+        back.setBackground(new Color(165, 198, 255));
+
         step_number.setText(step_num + "" + " out of " + (result.size() - 1));
         if (step_num <= 0) {
             back.setEnabled(false);
@@ -69,7 +72,7 @@ public class Output extends JFrame {
                 }
             }
         });
-        back.setBounds(10, 316, 89, 23);
+        back.setBounds(10, 316, 120, 23);
         contentPane.add(back);
 
         next.addActionListener(new ActionListener() {
@@ -85,10 +88,12 @@ public class Output extends JFrame {
                 }
             }
         });
-        next.setBounds(140, 316, 89, 23);
+        next.setBounds(148, 316, 89, 23);
         contentPane.add(next);
 
-        JButton final_result = new JButton("final result");
+        JButton final_result = new JButton("Final result");
+        final_result.setBackground(new Color(165, 198, 255));
+
         final_result.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 gp.colseFrame();
@@ -102,14 +107,14 @@ public class Output extends JFrame {
                 next.setEnabled(false);
             }
         });
-        final_result.setBounds(332, 316, 111, 23);
+        final_result.setBounds(340, 316, 111, 23);
         contentPane.add(final_result);
         JLabel lblStepNumber = new JLabel("step number :");
-        lblStepNumber.setFont(new Font("Tahoma", Font.BOLD, 11));
-        lblStepNumber.setBounds(10, 27, 89, 23);
+        lblStepNumber.setFont(new Font("Tahoma", Font.BOLD, 13));
+        lblStepNumber.setBounds(10, 27, 180, 23);
         contentPane.add(lblStepNumber);
         
-        JLabel lblAllSteps = new JLabel("all steps");
+        JLabel lblAllSteps = new JLabel("Steps");
         lblAllSteps.setFont(new Font("Tahoma", Font.BOLD, 13));
         lblAllSteps.setBounds(20, 65, 82, 22);
         contentPane.add(lblAllSteps);
